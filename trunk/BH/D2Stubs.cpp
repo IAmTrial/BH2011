@@ -53,3 +53,14 @@ DWORD __declspec(naked) __fastcall D2CLIENT_GetUIVar_STUB(DWORD varno)
 		jmp D2CLIENT_GetUiVar_I;
 	}
 }
+
+__declspec(naked) CellFile* __fastcall D2CLIENT_LoadUiImage(CHAR* szPath)
+{
+	__asm
+	{
+		MOV EAX, ECX
+		PUSH 0
+		CALL D2CLIENT_LoadUiImage_I
+		RETN
+	}
+}

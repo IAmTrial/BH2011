@@ -88,6 +88,9 @@
     <Filter Include="BH\Modules\Module\ModuleManager">
       <UniqueIdentifier>{3bb14dd4-54ee-4ea3-b640-4379d78769a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BH\Modules\Gamefilter">
+      <UniqueIdentifier>{7d63d79b-3a63-4e32-aed4-6af646925d96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DllMain.cpp">
@@ -167,6 +170,9 @@
     </ClCompile>
     <ClCompile Include="Drawing\Advanced\Keyhook\Keyhook.cpp">
       <Filter>Diablo II\Drawing\Advanced\Keyhook</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Gamefilter\Gamefilter.cpp">
+      <Filter>BH\Modules\Gamefilter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +262,9 @@
     </ClInclude>
     <ClInclude Include="Drawing\Advanced\Keyhook\Keyhook.h">
       <Filter>Diablo II\Drawing\Advanced\Keyhook</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Gamefilter\Gamefilter.h">
+      <Filter>BH\Modules\Gamefilter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

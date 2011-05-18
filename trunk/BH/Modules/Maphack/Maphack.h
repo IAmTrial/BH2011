@@ -48,3 +48,7 @@ class Maphack : public Module {
 	static Level* GetLevel(Act* pAct, int level);
 	static AutomapLayer* InitLayer(int level);
 };
+
+void Weather_Interception();
+void Lighting_Interception();
+void Infravision_Interception();

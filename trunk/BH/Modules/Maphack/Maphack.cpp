@@ -442,3 +442,46 @@ Level* Maphack::GetLevel(Act* pAct, int level)
 	//Default old-way of finding level.
 	return D2COMMON_GetLevel(pAct->pMisc, level);
 }
+
+void __declspec(naked) Weather_Interception()
+{
+	__asm {
+		je rainold
+		xor al,al
+rainold:
+		ret 0x04
+	}
+}
+
+BOOL __fastcall InfravisionPatch(UnitAny *unit)
+{
+	return false;
+}
+void __declspec(naked) Lighting_Interception()
+{
+	__asm {
+		je lightold
+		mov eax,0xff
+		mov byte ptr [esp+4+0], al
+		mov byte ptr [esp+4+1], al
+		mov byte ptr [esp+4+2], al
+		add dword ptr [esp], 0x72;
+		ret
+		lightold:
+		push esi
+		call D2COMMON_GetLevelIdFromRoom_I;
+		ret
+	}
+}
+
+
+
+void __declspec(naked) Infravision_Interception()
+{
+	__asm {
+		mov ecx, esi
+		call InfravisionPatch
+		add dword ptr [esp], 0x72
+		ret
+	}
+}

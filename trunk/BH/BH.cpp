@@ -20,6 +20,11 @@ Patch* patchs[] = {
 	new Patch(Jump, D2CLIENT, 0xC3DB4,	(int)GameDraw_Interception, 6),
 	new Patch(Jump, D2CLIENT, 0x626C9, (int)GameAutomapDraw_Interception, 5),
 	new Patch(Call, D2WIN, 0x18911, (int)OOGDraw_Interception, 5),
+
+	new Patch(Call, BNCLIENT, 0xEABC, (int)ChatPacketRecv_Interception, 12),
+	new Patch(Call, D2MCPCLIENT, 0x69D7, (int)RealmPacketRecv_Interception, 5),
+	new Patch(Call, D2CLIENT, 0xACE61, (int)GamePacketRecv_Interception, 5),
+
 };
 
 unsigned int index = 0;
@@ -59,6 +64,7 @@ bool BH::Startup(HINSTANCE instance, VOID* reserved) {
 
 	new Maphack();
 	new ScreenInfo();
+	new Gamefilter();
 
 	CreateThread(0,0,GameThread, 0,0,0);
 

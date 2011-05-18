@@ -88,3 +88,24 @@ LONG WINAPI GameWindowEvent(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
 
 	return blockEvent ? NULL : (LONG)CallWindowProcA(BH::OldWNDPROC, hWnd, uMsg, wParam, lParam);
 }
+
+BOOL ChatPacketRecv(DWORD dwSize,BYTE* pPacket) {
+	bool blockPacket = false;
+	__raise BH::moduleManager->OnChatPacketRecv(pPacket, &blockPacket);
+	return !blockPacket;
+}
+
+BOOL __fastcall RealmPacketRecv(BYTE* pPacket) {
+	bool blockPacket = false;
+	__raise BH::moduleManager->OnRealmPacketRecv(pPacket, &blockPacket);
+	return !blockPacket;
+}
+
+DWORD __fastcall GamePacketRecv(BYTE* pPacket, DWORD dwSize) {
+	if (!BH::cGuardLoaded && pPacket[0] == 0xAE) {
+		return false;
+	}
+	bool blockPacket = false;
+	__raise BH::moduleManager->OnGamePacketRecv(pPacket, &blockPacket);
+	return !blockPacket;
+}

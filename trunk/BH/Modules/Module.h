@@ -39,4 +39,8 @@ class Module {
 		virtual void OnLeftClick(bool up, int x, int y, bool* block) {};
 		virtual void OnRightClick(bool up, int x, int y, bool* block) {};
 		virtual void OnKey(bool up, BYTE key, LPARAM lParam, bool* block) {};
+
+		virtual void OnChatPacketRecv(BYTE* packet, bool* block) {};
+		virtual void OnRealmPacketRecv(BYTE* packet, bool* block) {};
+		virtual void OnGamePacketRecv(BYTE* packet, bool* block) {};
 };

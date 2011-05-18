@@ -56,46 +56,62 @@ void __declspec(naked) GameLoop_Interception()
 	}
 }
 
+VOID __declspec(naked) GamePacketRecv_Interception() {
+	__asm
+	{
+		pop ebp;
+		pushad;
 
-void __declspec(naked) Weather_Interception()
-{
-	__asm {
-		je rainold
-		xor al,al
-rainold:
-		ret 0x04
+		call GamePacketRecv;
+		test eax, eax;
+
+		popad;
+		jnz OldCode;
+
+		mov edx, 0;
+
+OldCode:
+		call D2NET_ReceivePacket_I;
+
+		push ebp;
+		ret;
 	}
 }
 
-BOOL __fastcall InfravisionPatch(UnitAny *unit)
+VOID __declspec(naked) ChatPacketRecv_Interception()
 {
-	return false;
+   __asm
+   {
+      pushad;
+      call ChatPacketRecv;
+      TEST EAX,EAX;
+
+      popad;
+      jnz oldCall;
+
+        MOV EAX,0;
+      MOV DWORD PTR DS:[EBX+0x6FF3ED58],1
+      ret;
+oldCall:
+        CALL eax;
+        MOV DWORD PTR DS:[EBX+0x6FF3ED58],1
+        ret;
+
+   }
 }
-void __declspec(naked) Lighting_Interception()
+
+VOID __declspec(naked) RealmPacketRecv_Interception()
 {
-	__asm {
-		je lightold
-		mov eax,0xff
-		mov byte ptr [esp+4+0], al
-		mov byte ptr [esp+4+1], al
-		mov byte ptr [esp+4+2], al
-		add dword ptr [esp], 0x72;
-		ret
-		lightold:
-		push esi
-		call D2COMMON_GetLevelIdFromRoom_I;
-		ret
-	}
-}
-
-
-
-void __declspec(naked) Infravision_Interception()
-{
-	__asm {
-		mov ecx, esi
-		call InfravisionPatch
-		add dword ptr [esp], 0x72
-		ret
+	__asm
+	{
+		LEA ECX,DWORD PTR SS:[ESP+4]
+		PUSHAD
+		CALL RealmPacketRecv
+		CMP EAX, 0
+		POPAD
+		JE Block
+		CALL EAX
+Block:
+		RETN
 	}
 }

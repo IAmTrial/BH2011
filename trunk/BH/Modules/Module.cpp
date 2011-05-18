@@ -29,6 +29,10 @@ void Module::Load() {
 	__hook(&ModuleManager::OnRightClick, BH::moduleManager, &Module::OnRightClick, this);
 	__hook(&ModuleManager::OnKey, BH::moduleManager, &Module::OnKey, this);
 
+	__hook(&ModuleManager::OnChatPacketRecv, BH::moduleManager, &Module::OnChatPacketRecv, this);
+	__hook(&ModuleManager::OnRealmPacketRecv, BH::moduleManager, &Module::OnRealmPacketRecv, this);
+	__hook(&ModuleManager::OnGamePacketRecv, BH::moduleManager, &Module::OnGamePacketRecv, this);
+
 	active = true;
 	OnLoad();
 }
@@ -50,6 +54,10 @@ void Module::Unload() {
 	__unhook(&ModuleManager::OnLeftClick, BH::moduleManager, &Module::OnLeftClick, this);
 	__unhook(&ModuleManager::OnRightClick, BH::moduleManager, &Module::OnRightClick, this);
 	__unhook(&ModuleManager::OnKey, BH::moduleManager, &Module::OnKey, this);
+
+	__unhook(&ModuleManager::OnChatPacketRecv, BH::moduleManager, &Module::OnChatPacketRecv, this);
+	__unhook(&ModuleManager::OnRealmPacketRecv, BH::moduleManager, &Module::OnRealmPacketRecv, this);
+	__unhook(&ModuleManager::OnGamePacketRecv, BH::moduleManager, &Module::OnGamePacketRecv, this);
 
 	active = false;
 	OnUnload();
