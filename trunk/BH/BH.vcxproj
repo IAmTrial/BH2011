@@ -115,7 +115,9 @@
     <ClCompile Include="Drawing\Hook.cpp" />
     <ClCompile Include="Drawing\UI\UI.cpp" />
     <ClCompile Include="Drawing\UI\UITab.cpp" />
+    <ClCompile Include="Modules\Bnet\Bnet.cpp" />
     <ClCompile Include="Modules\Gamefilter\Gamefilter.cpp" />
+    <ClCompile Include="Modules\Item\Item.cpp" />
     <ClCompile Include="Modules\Maphack\Maphack.cpp" />
     <ClCompile Include="Modules\Module.cpp" />
     <ClCompile Include="Modules\ModuleManager.cpp" />
@@ -147,7 +149,9 @@
     <ClInclude Include="Drawing\UI\UI.h" />
     <ClInclude Include="Drawing\UI\UITab.h" />
     <ClInclude Include="Modules.h" />
+    <ClInclude Include="Modules\Bnet\Bnet.h" />
     <ClInclude Include="Modules\Gamefilter\Gamefilter.h" />
+    <ClInclude Include="Modules\Item\Item.h" />
     <ClInclude Include="Modules\Maphack\Maphack.h" />
     <ClInclude Include="Modules\Module.h" />
     <ClInclude Include="Modules\ModuleManager.h" />

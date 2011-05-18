@@ -65,6 +65,8 @@ bool BH::Startup(HINSTANCE instance, VOID* reserved) {
 	new Maphack();
 	new ScreenInfo();
 	new Gamefilter();
+	new Bnet();
+	new Item();
 
 	CreateThread(0,0,GameThread, 0,0,0);
 

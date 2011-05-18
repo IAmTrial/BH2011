@@ -82,14 +82,20 @@
     <Filter Include="BH\Modules\ScreenInfo">
       <UniqueIdentifier>{0bb49c6f-c425-4b7e-9048-50150b86d308}</UniqueIdentifier>
     </Filter>
-    <Filter Include="BH\Modules\Module">
-      <UniqueIdentifier>{58df27c0-ae80-4200-ba7b-d4e0028bddee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="BH\Modules\Module\ModuleManager">
-      <UniqueIdentifier>{3bb14dd4-54ee-4ea3-b640-4379d78769a4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="BH\Modules\Gamefilter">
       <UniqueIdentifier>{7d63d79b-3a63-4e32-aed4-6af646925d96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BH\Modules\Bnet">
+      <UniqueIdentifier>{db69f8fc-d5f4-4cc1-837e-83b21c73180d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BH\Module">
+      <UniqueIdentifier>{58df27c0-ae80-4200-ba7b-d4e0028bddee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BH\Module\ModuleManager">
+      <UniqueIdentifier>{3bb14dd4-54ee-4ea3-b640-4379d78769a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BH\Modules\Item">
+      <UniqueIdentifier>{708dbccd-f079-4e45-98f5-2e9bb7bc0300}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -127,10 +133,10 @@
       <Filter>BH\Modules\ScreenInfo</Filter>
     </ClCompile>
     <ClCompile Include="Modules\Module.cpp">
-      <Filter>BH\Modules\Module</Filter>
+      <Filter>BH\Module</Filter>
     </ClCompile>
     <ClCompile Include="Modules\ModuleManager.cpp">
-      <Filter>BH\Modules\Module\ModuleManager</Filter>
+      <Filter>BH\Module\ModuleManager</Filter>
     </ClCompile>
     <ClCompile Include="Drawing\Hook.cpp">
       <Filter>Diablo II\Drawing</Filter>
@@ -173,6 +179,12 @@
     </ClCompile>
     <ClCompile Include="Modules\Gamefilter\Gamefilter.cpp">
       <Filter>BH\Modules\Gamefilter</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Bnet\Bnet.cpp">
+      <Filter>BH\Modules\Bnet</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Item\Item.cpp">
+      <Filter>BH\Modules\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -219,10 +231,10 @@
       <Filter>BH\Modules\ScreenInfo</Filter>
     </ClInclude>
     <ClInclude Include="Modules\Module.h">
-      <Filter>BH\Modules\Module</Filter>
+      <Filter>BH\Module</Filter>
     </ClInclude>
     <ClInclude Include="Modules\ModuleManager.h">
-      <Filter>BH\Modules\Module\ModuleManager</Filter>
+      <Filter>BH\Module\ModuleManager</Filter>
     </ClInclude>
     <ClInclude Include="Drawing\Hook.h">
       <Filter>Diablo II\Drawing</Filter>
@@ -265,6 +277,12 @@
     </ClInclude>
     <ClInclude Include="Modules\Gamefilter\Gamefilter.h">
       <Filter>BH\Modules\Gamefilter</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Bnet\Bnet.h">
+      <Filter>BH\Modules\Bnet</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Item\Item.h">
+      <Filter>BH\Modules\Item</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
