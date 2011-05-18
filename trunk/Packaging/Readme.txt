@@ -1,0 +1,2 @@
+/Zi /nologo /W3 /WX- /Od /Oy- /D "_WINDLL" /D "_MBCS" /Gm- /EHsc /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fp"Packaging\BH.pch" /Fa"Packaging\" /Fo"Packaging\" /Fd"Packaging\vc100.pdb" /Gd /analyze- /errorReport:queue 
+/ZI /nologo /W3 /WX- /Od /Oy- /D "_WINDLL" /D "_MBCS" /Gm /EHsc /RTC1 /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fp"Debug\BH.pch" /Fa"Debug\" /Fo"Debug\" /Fd"Debug\vc100.pdb" /Gd /analyze- /errorReport:queue 
