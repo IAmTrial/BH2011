@@ -31,6 +31,7 @@ DWORD WINAPI GameThread(VOID* lpvoid) {
 			inGame = true;
 			__raise BH::moduleManager->OnGameJoin((*p_D2LAUNCH_BnData)->szGameName, (*p_D2LAUNCH_BnData)->szGamePass, D2CLIENT_GetDifficulty());
 		}
+		Sleep(10);
 	}
 }
 
