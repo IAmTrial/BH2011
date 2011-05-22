@@ -72,6 +72,7 @@ bool BH::Startup(HINSTANCE instance, VOID* reserved) {
 	new Gamefilter();
 	new Bnet();
 	new Item();
+	new SpamFilter();
 
 	CreateThread(0,0,GameThread, 0,0,0);
 

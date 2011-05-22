@@ -9,6 +9,9 @@ using namespace std;
 class ModuleManager {
 	private:
 		map<string, Module*> moduleList;
+
+		void FixName(std::string& name);
+
 	public:
 		ModuleManager();
 		~ModuleManager();

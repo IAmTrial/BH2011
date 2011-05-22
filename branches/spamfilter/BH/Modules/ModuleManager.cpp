@@ -1,6 +1,7 @@
 #include "ModuleManager.h"
 #include "Module.h"
 
+#include <algorithm>
 #include <iterator>
 
 ModuleManager::ModuleManager() {
@@ -14,14 +15,24 @@ ModuleManager::~ModuleManager() {
 	}
 }
 
+void ModuleManager::FixName(std::string& name)
+{
+	std::transform(name.begin(), name.end(), name.begin(), tolower);
+	std::replace(name.begin(), name.end(), ' ', '-');
+}
+
 void ModuleManager::Add(Module* module) {
 	// Add to list of modules
-	moduleList[module->GetName()] = module;
+	std::string name = module->GetName();
+	FixName(name);
+	moduleList[name] = module;
 }
 
 void ModuleManager::Remove(Module* module) {
 	// Remove module from list
-	moduleList.erase(module->GetName());
+	std::string name = module->GetName();
+	FixName(name);
+	moduleList.erase(name);
 
 	delete module;
 }
@@ -41,9 +52,10 @@ void ModuleManager::UnloadModules() {
 bool ModuleManager::UserInput(wchar_t* module, wchar_t* msg, bool fromGame) {
 	bool block = false;
 	std::string name;
-	std::copy(name.begin(), name.end(), std::back_inserter(std::wstring(module)));
+	std::wstring modname(module);
+	name.assign(modname.begin(), modname.end());
 	for (map<string, Module*>::iterator it = moduleList.begin(); it != moduleList.end(); ++it) {
-		if(it->second->GetName() == name)
+		if(it->first == name)
 			__raise it->second->UserInput(msg, fromGame, &block);
 	}
 	return block;
