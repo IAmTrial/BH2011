@@ -8,19 +8,19 @@
 class PluginManager {
 	private:
 		std::list<Plugin*> plugins;
-		std::string path;
+		std::wstring path;
 		CRITICAL_SECTION crit;
 
 	public:
-		PluginManager(std::string pluginPath);
+		PluginManager(std::wstring pluginPath);
 		~PluginManager();
 
 		void Lock() { EnterCriticalSection(&crit); };
 		void Unlock() { LeaveCriticalSection(&crit); };
 
-		bool Load(std::string name);
+		bool Load(std::wstring name);
 		bool Unload(Plugin* plugin);
 
-		bool DoesExist(std::string name);
-		Plugin* GetPlugin(std::string name);
+		bool DoesExist(std::wstring name);
+		Plugin* GetPlugin(std::wstring name);
 };

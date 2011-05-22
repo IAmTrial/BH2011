@@ -5,16 +5,16 @@
 class Plugin {
 	private:
 		IPlugin* pluginInterface;
-		std::string name;
-		std::string author;
+		std::wstring name;
+		std::wstring author;
 		double version;
 		bool loaded;
 	public:
 		Plugin(IPluginInfo* info);
 		~Plugin();
 
-		std::string GetName() { return name; };
-		std::string GetAuthor() { return author; };
+		std::wstring GetName() { return name; };
+		std::wstring GetAuthor() { return author; };
 		double GetVersion() { return version; };
 		bool IsLoaded() { return loaded; };
 

@@ -16,9 +16,9 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -62,12 +62,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BHTK.cpp" />
+    <ClCompile Include="Common.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Patch.cpp" />
     <ClCompile Include="Plugin.cpp" />
     <ClCompile Include="PluginManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BHTK.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="D2Ptrs.h" />
+    <ClInclude Include="D2Structs.h" />
+    <ClInclude Include="Interface\IPatch.h" />
+    <ClInclude Include="Patch.h" />
     <ClInclude Include="Interface\IBHTK.h" />
     <ClInclude Include="Interface\IPlugin.h" />
     <ClInclude Include="Plugin.h" />

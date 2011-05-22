@@ -5,6 +5,7 @@ Plugin::Plugin(IPluginInfo* info) {
 	author = info->author;
 	version = info->version;
 	pluginInterface = info->plugin;
+	loaded = false;
 
 	pluginInterface->OnLoad();
 }

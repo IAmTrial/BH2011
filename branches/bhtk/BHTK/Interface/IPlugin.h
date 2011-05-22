@@ -8,8 +8,8 @@ class IPlugin {
 };
 
 struct IPluginInfo {
-	std::string name;
-	std::string author;
+	std::wstring name;
+	std::wstring author;
 	double version;
 	IPlugin* plugin;
 };

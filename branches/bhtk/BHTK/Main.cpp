@@ -1,14 +1,14 @@
-#include <iostream>
-#include <Shlwapi.h>
-#include "PluginManager.h"
+#include "BHTK.h"
+#include <Windows.h>
 
-int main(int argc, char** argv) {
-	PathRemoveFileSpecA(argv[0]);
-	std::string path = argv[0];
-	path += "\\";
-	PluginManager* manager = new PluginManager(path);
-	
-	manager->Load("TestPlugin");
-
-	system("PAUSE");
+BOOL WINAPI DllMain(HMODULE instance, DWORD reason, VOID* reserved) {
+	BHTK* bhtk = BHTK::GetInstance();
+	switch(reason) {
+		case DLL_PROCESS_ATTACH:
+			return bhtk->Startup(instance, reserved);
+		break;
+		case DLL_PROCESS_DETACH:
+			return bhtk->Shutdown();
+		break;
+	}
 }
