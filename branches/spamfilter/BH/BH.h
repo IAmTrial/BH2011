@@ -1,0 +1,31 @@
+#pragma once
+#include <string>
+#include <Windows.h>
+#include "Modules/ModuleManager.h"
+#include "Config.h"
+#include "Drawing.h"
+
+using namespace std;
+
+struct cGuardModule
+{	
+	union {
+		HMODULE hModule;
+		DWORD dwBaseAddress;
+	};
+	DWORD _1;
+	char szPath[MAX_PATH];
+};
+
+namespace BH {
+	extern string path;
+	extern HINSTANCE instance;
+	extern ModuleManager* moduleManager;
+	extern Config* config;
+	extern Drawing::UI* settingsUI;
+	extern WNDPROC OldWNDPROC;
+	extern bool cGuardLoaded;
+
+	extern bool Startup(HINSTANCE instance, VOID* reserved);
+	extern bool Shutdown();
+};
