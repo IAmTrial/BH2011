@@ -20,6 +20,8 @@ class ModuleManager {
 		void LoadModules();
 		void UnloadModules();
 
+		bool UserInput(wchar_t* module, wchar_t* msg, bool fromGame);
+
 		__event void OnLoop();
 
 		__event void OnGameJoin(const string& name, const string& pass, int diff);
@@ -36,4 +38,6 @@ class ModuleManager {
 		__event void OnChatPacketRecv(BYTE* packet, bool* block);
 		__event void OnRealmPacketRecv(BYTE* packet, bool* block);
 		__event void OnGamePacketRecv(BYTE* packet, bool* block);
+
+		__event void OnChatMsg(const char* user, const char* msg, bool fromGame, bool* block);
 };

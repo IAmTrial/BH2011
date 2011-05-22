@@ -1,6 +1,8 @@
 #include "ModuleManager.h"
 #include "Module.h"
 
+#include <iterator>
+
 ModuleManager::ModuleManager() {
 
 }
@@ -34,4 +36,15 @@ void ModuleManager::UnloadModules() {
 	for (map<string, Module*>::iterator it = moduleList.begin(); it != moduleList.end(); ++it) {
 		(*it).second->Unload();
 	}
+}
+
+bool ModuleManager::UserInput(wchar_t* module, wchar_t* msg, bool fromGame) {
+	bool block = false;
+	std::string name;
+	std::copy(name.begin(), name.end(), std::back_inserter(std::wstring(module)));
+	for (map<string, Module*>::iterator it = moduleList.begin(); it != moduleList.end(); ++it) {
+		if(it->second->GetName() == name)
+			__raise it->second->UserInput(msg, fromGame, &block);
+	}
+	return block;
 }

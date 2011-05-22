@@ -36,7 +36,7 @@ class Maphack : public Module {
 	void OnGameJoin(const string& name, const string& pass, int diff);
 
 	void ResetRevealed();
-	void ResetPatchs();
+	void ResetPatches();
 
 	void OnKey(bool up, BYTE key, LPARAM lParam, bool* block);
 

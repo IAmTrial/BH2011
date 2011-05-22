@@ -399,6 +399,7 @@ VARPTR(D2LAUNCH, BnData, BnetData *, 0x25ABC)
 // D2Win Functions
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
+FUNCPTR(D2WIN, SetControlText, void* __fastcall, (DWORD* box, wchar_t* txt), -10042)
 FUNCPTR(D2WIN, DrawSprites, void __fastcall, (void), 0x18750)
 
 
@@ -428,7 +429,7 @@ FUNCPTR(D2WIN, InitMPQ, DWORD __stdcall, (char *dll,const char *mpqfile, char *m
 
 VARPTR(D2WIN, FirstControl, Control*, 0x214A0)
 VARPTR(D2WIN, FocusedControl, Control*, 0x214B0) // unused, but we ought to use it
-
+VARPTR(D2WIN, ChatInputBox, DWORD*, 0x12A0D0)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // D2Game Functions

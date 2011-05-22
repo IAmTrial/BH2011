@@ -1,11 +1,11 @@
 #include "Patch.h"
-std::vector<Patch*> Patch::Patchs;
+std::vector<Patch*> Patch::Patches;
 
 Patch::Patch(PatchType type, Dll dll, int offset, int function, int length) 
 : type(type), dll(dll), offset(offset), function(function), length(length) {
 	oldCode = new BYTE[length];
 	injected = false;
-	Patchs.push_back(this);
+	Patches.push_back(this);
 }
 
 int Patch::GetDllOffset(Dll dll, int offset) {

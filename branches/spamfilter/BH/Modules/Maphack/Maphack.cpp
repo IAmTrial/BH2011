@@ -53,7 +53,7 @@ void Maphack::ResetRevealed() {
 		revealedLevel[level] = false;
 }
 
-void Maphack::ResetPatchs() {
+void Maphack::ResetPatches() {
 	//Lighting Patch
 	if (Toggles["Force Light Radius"].state)
 		lightingPatch->Install();
@@ -76,7 +76,7 @@ void Maphack::ResetPatchs() {
 void Maphack::OnLoad() {
 	ResetRevealed();
 	ReadConfig();
-	ResetPatchs();
+	ResetPatches();
 
 	settingsTab = new UITab("Maphack", BH::settingsUI);
 
@@ -133,7 +133,7 @@ void Maphack::OnKey(bool up, BYTE key, LPARAM lParam, bool* block) {
 			*block = true;
 			if (up) {
 				(*it).second.state = !(*it).second.state;
-				ResetPatchs();
+				ResetPatches();
 			}
 			return;
 		}
@@ -150,7 +150,7 @@ void Maphack::OnUnload() {
 void Maphack::OnLoop() {
 	
 	// Remove or install patchs based on state.
-	ResetPatchs();
+	ResetPatches();
 
 	// Get the player unit for area information.
 	UnitAny* unit = D2CLIENT_GetPlayerUnit();
