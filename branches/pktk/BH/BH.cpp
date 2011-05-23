@@ -67,6 +67,7 @@ bool BH::Startup(HINSTANCE instance, VOID* reserved) {
 	new Gamefilter();
 	new Bnet();
 	new Item();
+	new PKTK();
 
 	CreateThread(0,0,GameThread, 0,0,0);
 

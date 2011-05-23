@@ -268,6 +268,7 @@ FUNCPTR(D2COMMON, GetStatList, StatList* __stdcall, (UnitAny* pUnit, DWORD dwUnk
 FUNCPTR(D2COMMON, CopyStatList, DWORD __stdcall, (StatList* pStatList, Stat* pStatArray, DWORD dwMaxEntries), -10658)
 FUNCPTR(D2COMMON, GetUnitStat, DWORD __stdcall, (UnitAny* pUnit, DWORD dwStat, DWORD dwStat2), -10973)
 FUNCPTR(D2COMMON, GetUnitState, int __stdcall, (UnitAny *pUnit, DWORD dwStateNo), -10494)
+FUNCPTR(D2COMMON, GetUnitDistance, int __stdcall, (UnitAny* pUnit1, UnitAny* pUnit2), -10522)
 
 FUNCPTR(D2COMMON, CheckUnitCollision, DWORD __stdcall, (UnitAny* pUnitA, UnitAny* pUnitB, DWORD dwBitMask), -10839)
 FUNCPTR(D2COMMON, GetRoomFromUnit,  Room1* __stdcall, (UnitAny * ptUnit), -10331)
@@ -318,7 +319,8 @@ ASMPTR(D2COMMON, GetLevelIdFromRoom_I, 0x3C000)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 FUNCPTR(D2NET, SendPacket, void __stdcall, (size_t aLen, DWORD arg1, BYTE* aPacket), -10024)
-FUNCPTR(D2NET, ReceivePacket_I, void __stdcall, (BYTE *aPacket, DWORD aLen), -10033)
+FUNCPTR(D2NET, ReceivePacket, DWORD __stdcall, (BYTE *buffer, size_t buflen), 0x6BD0)
+FUNCPTR(D2NET, FindPacketSize, void __fastcall, (BYTE *buffer, DWORD buflen, DWORD* packetSize), -10033)
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

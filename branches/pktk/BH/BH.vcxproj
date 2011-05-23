@@ -121,6 +121,7 @@
     <ClCompile Include="Modules\Maphack\Maphack.cpp" />
     <ClCompile Include="Modules\Module.cpp" />
     <ClCompile Include="Modules\ModuleManager.cpp" />
+    <ClCompile Include="Modules\PKTK\PKTK.cpp" />
     <ClCompile Include="Modules\ScreenInfo\ScreenInfo.cpp" />
     <ClCompile Include="Patch.cpp" />
   </ItemGroup>
@@ -155,6 +156,8 @@
     <ClInclude Include="Modules\Maphack\Maphack.h" />
     <ClInclude Include="Modules\Module.h" />
     <ClInclude Include="Modules\ModuleManager.h" />
+    <ClInclude Include="Modules\PKTK\Constants.h" />
+    <ClInclude Include="Modules\PKTK\PKTK.h" />
     <ClInclude Include="Modules\ScreenInfo\ScreenInfo.h" />
     <ClInclude Include="Patch.h" />
   </ItemGroup>

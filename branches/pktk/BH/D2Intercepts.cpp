@@ -71,7 +71,7 @@ VOID __declspec(naked) GamePacketRecv_Interception() {
 		mov edx, 0;
 
 OldCode:
-		call D2NET_ReceivePacket_I;
+		call D2NET_FindPacketSize;
 
 		push ebp;
 		ret;

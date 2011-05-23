@@ -97,6 +97,9 @@
     <Filter Include="BH\Modules\Item">
       <UniqueIdentifier>{708dbccd-f079-4e45-98f5-2e9bb7bc0300}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BH\Modules\PKTK">
+      <UniqueIdentifier>{fa13f4c8-e339-43d8-9881-0f90f726075f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DllMain.cpp">
@@ -185,6 +188,9 @@
     </ClCompile>
     <ClCompile Include="Modules\Item\Item.cpp">
       <Filter>BH\Modules\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\PKTK\PKTK.cpp">
+      <Filter>BH\Modules\PKTK</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +289,12 @@
     </ClInclude>
     <ClInclude Include="Modules\Item\Item.h">
       <Filter>BH\Modules\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\PKTK\PKTK.h">
+      <Filter>BH\Modules\PKTK</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\PKTK\Constants.h">
+      <Filter>BH\Modules\PKTK</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
