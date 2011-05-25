@@ -1,7 +1,9 @@
 #include <Windows.h>
 #include <iostream>
-#include "../BHTK/BHTK.h"
-#include "../BHTK/Patch.h"
+#define _DEFINE_PTRS
+#include "BHTK.h"
+#include "Patch.h"
+#include "D2Ptrs.h"
 
 using namespace std;
 
@@ -29,6 +31,8 @@ class PluginTest : public Plugin {
 		PluginTest();
 
 		void OnLoad();
+
+		void OnOOGDraw();
 };
 
 PluginTest::PluginTest() : Plugin(L"Test Plugin", L"McGod", 1.0) {
@@ -38,6 +42,10 @@ PluginTest::PluginTest() : Plugin(L"Test Plugin", L"McGod", 1.0) {
 void PluginTest::OnLoad() {
 	infravision->Install();
 	BHTK::Print(L"PluginTest: Patched Infravision");
+}
+
+void PluginTest::OnOOGDraw() {
+	D2WIN_DrawText(L"Test", 100, 100, 3, 0);
 }
 
 BOOL WINAPI DllMain(HINSTANCE hDll,DWORD dwReason,LPVOID lpReserved) {

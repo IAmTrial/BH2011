@@ -56,7 +56,7 @@ bool PluginManager::Load(wstring name) {
 	// Add the plugin to the list.
 	plugins.push_back(plugin);
 
-	plugin->OnLoad();
+	plugin->Load();
 
 	Unlock();
 

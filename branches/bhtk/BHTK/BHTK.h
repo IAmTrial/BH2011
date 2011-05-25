@@ -20,6 +20,7 @@ namespace BHTK {
 	VAR HINSTANCE instance;
 	EXPORT VAR bool cGuardLoaded;
 	VAR PluginManager* pluginManager;
+	VAR WNDPROC OldWNDPROC;
 
 	bool Startup(HMODULE instance, VOID* reserved);
 	bool Shutdown();
