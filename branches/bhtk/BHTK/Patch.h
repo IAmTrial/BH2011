@@ -1,15 +1,20 @@
 #pragma once
 
-#pragma once
+#define EXPORTING
+
 #include <vector>
 #include <string>
 #include <Windows.h>
+#include "Exports.h"
 
 class Patch;
 
-#include "Interface\IPatch.h"
 
-class Patch : public IPatch {
+enum Dll { D2CLIENT=0,D2COMMON,D2GFX,D2LANG,D2WIN,D2NET,D2GAME,D2LAUNCH,FOG,BNCLIENT, STORM, D2CMP, D2MULTI, D2MCPCLIENT};
+enum PatchType { Jump=0, Call };
+
+
+class Patch {
 	private:
 		static std::vector<Patch*> Patchs;
 		Dll dll;
@@ -18,13 +23,13 @@ class Patch : public IPatch {
 		BYTE* oldCode;
 		bool injected;
 	public:
-		Patch(PatchType type, Dll dll, int offset, int function, int length);
+		EXPORT Patch(PatchType type, Dll dll, int offset, int function, int length);
 
-		bool Install ();
-		bool Remove ();
+		EXPORT bool Install ();
+		EXPORT bool Remove ();
 
-		bool IsInstalled() { return injected; };
+		EXPORT bool IsInstalled() { return injected; };
 
-		static int GetDllOffset(Dll dll, int offset);
+		EXPORT static int GetDllOffset(Dll dll, int offset);
 		static bool WriteBytes(int address, int len, BYTE* bytes);
 };

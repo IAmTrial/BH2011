@@ -1,15 +1,8 @@
 #include "Plugin.h"
 
-Plugin::Plugin(IPluginInfo* info) {
-	name = info->name;
-	author = info->author;
-	version = info->version;
-	pluginInterface = info->plugin;
+Plugin::Plugin(std::wstring name, std::wstring author, double version) : name(name), author(author), version(version) {
 	loaded = false;
-
-	pluginInterface->OnLoad();
 }
 
 Plugin::~Plugin() {
-	delete pluginInterface;
 }

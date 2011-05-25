@@ -1,14 +1,14 @@
+#define _DEFINE_VAR
 #include "BHTK.h"
 #include <Windows.h>
 
 BOOL WINAPI DllMain(HMODULE instance, DWORD reason, VOID* reserved) {
-	BHTK* bhtk = BHTK::GetInstance();
 	switch(reason) {
 		case DLL_PROCESS_ATTACH:
-			return bhtk->Startup(instance, reserved);
+			return BHTK::Startup(instance, reserved);
 		break;
 		case DLL_PROCESS_DETACH:
-			return bhtk->Shutdown();
+			return BHTK::Shutdown();
 		break;
 	}
 }

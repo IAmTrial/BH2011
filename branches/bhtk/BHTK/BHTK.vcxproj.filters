@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="BHTK.cpp">
+      <Filter>BHTK</Filter>
+    </ClCompile>
+    <ClCompile Include="Plugin.cpp">
+      <Filter>Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="PluginManager.cpp">
+      <Filter>Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="Common.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Patch.cpp">
+      <Filter>Diablo\Patch</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BHTK.h">
+      <Filter>BHTK</Filter>
+    </ClInclude>
+    <ClInclude Include="D2Ptrs.h">
+      <Filter>Diablo</Filter>
+    </ClInclude>
+    <ClInclude Include="D2Structs.h">
+      <Filter>Diablo</Filter>
+    </ClInclude>
+    <ClInclude Include="PluginManager.h">
+      <Filter>Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="Plugin.h">
+      <Filter>Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Exports.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Patch.h">
+      <Filter>Diablo\Patch</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="BHTK">
+      <UniqueIdentifier>{48711647-e7a2-419d-af75-d594978b382f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo">
+      <UniqueIdentifier>{ddd5dcfb-b8c0-46ee-8e72-9ca560c9ce7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugin">
+      <UniqueIdentifier>{67faccc4-3f54-4059-b78a-6a7606df1069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{bfca50f5-09a5-4d39-a27f-d62df355a015}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo\Patch">
+      <UniqueIdentifier>{2270a670-f1b7-4cdc-9908-58f6b7917bcf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

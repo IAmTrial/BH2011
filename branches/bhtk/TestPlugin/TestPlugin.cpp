@@ -1,10 +1,10 @@
 #include <Windows.h>
 #include <iostream>
-#include "../BHTK/Interface/IBHTK.h"
+#include "../BHTK/BHTK.h"
+#include "../BHTK/Patch.h"
 
 using namespace std;
 
-IBHTK* BHTK;
 struct UnitAny;
 
 BOOL __fastcall InfravisionPatch(UnitAny *unit)
@@ -22,35 +22,29 @@ void __declspec(naked) Infravision_Interception()
 	}
 }
 
-class PluginTest : public IPlugin {
+class PluginTest : public Plugin {
 	private:
-		IPatch* infravision;
+		Patch* infravision;
 	public:
 		PluginTest();
 
 		void OnLoad();
 };
 
-PluginTest::PluginTest() {
-	infravision = BHTK->NewPatch(Call, D2CLIENT, 0x66623, (int)Infravision_Interception, 7);
+PluginTest::PluginTest() : Plugin(L"Test Plugin", L"McGod", 1.0) {
+	infravision = new Patch(Call, D2CLIENT, 0x66623, (int)Infravision_Interception, 7);
 }
 
 void PluginTest::OnLoad() {
 	infravision->Install();
-	BHTK->Print(L"Infravision Patch installed");
+	BHTK::Print(L"PluginTest: Patched Infravision");
 }
 
 BOOL WINAPI DllMain(HINSTANCE hDll,DWORD dwReason,LPVOID lpReserved) {
 	return true;
 }
 
-extern "C" __declspec(dllexport) IPluginInfo* __stdcall InitPlugin(IBHTK* bhtk) 
+extern "C" __declspec(dllexport) Plugin* __stdcall InitPlugin() 
 {
-	BHTK = bhtk;
-	IPluginInfo* info = new IPluginInfo;
-	info->name = L"Test Plugin";
-	info->author = L"McGod";
-	info->plugin = new PluginTest();
-	info->version = 1.0;
-	return info;
+	return new PluginTest;
 }

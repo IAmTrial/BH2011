@@ -1,21 +1,23 @@
 #pragma once
+#define EXPORTING
 #include <string>
-#include "Interface/IPlugin.h"
+#include "Exports.h"
 
 class Plugin {
 	private:
-		IPlugin* pluginInterface;
 		std::wstring name;
 		std::wstring author;
 		double version;
 		bool loaded;
 	public:
-		Plugin(IPluginInfo* info);
-		~Plugin();
+		EXPORT Plugin(std::wstring name, std::wstring author, double version);
+		EXPORT ~Plugin();
 
-		std::wstring GetName() { return name; };
-		std::wstring GetAuthor() { return author; };
-		double GetVersion() { return version; };
-		bool IsLoaded() { return loaded; };
+		EXPORT std::wstring GetName() { return name; };
+		EXPORT std::wstring GetAuthor() { return author; };
+		EXPORT double GetVersion() { return version; };
+		EXPORT bool IsLoaded() { return loaded; };
 
+		EXPORT virtual void OnLoad() {};
+		EXPORT virtual void OnUnload() {};
 };

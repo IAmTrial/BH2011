@@ -5,7 +5,7 @@
 
 using namespace std;
 
-typedef IPluginInfo* (__stdcall *loadPlugin)(BHTK*);
+typedef Plugin* (__stdcall *loadPlugin)();
 
 PluginManager::PluginManager(wstring pluginPath) : path(pluginPath) {
 	InitializeCriticalSection(&crit);
@@ -38,7 +38,7 @@ bool PluginManager::Load(wstring name) {
 	}
 
 	// Find the plugin initalizer
-	loadPlugin initPlugin = (loadPlugin)GetProcAddress(module, "_InitPlugin@4");
+	loadPlugin initPlugin = (loadPlugin)GetProcAddress(module, "_InitPlugin@0");
 	if (!initPlugin) {
 		FreeLibrary(module);
 		Unlock();
@@ -46,16 +46,17 @@ bool PluginManager::Load(wstring name) {
 	}
 
 	// Initalize the plugin, returns information and plugin interface
-	IPluginInfo* info = initPlugin(BHTK::GetInstance());
-	if (!info) {
+	Plugin* plugin = initPlugin();
+	if (!plugin) {
 		FreeLibrary(module);
 		Unlock();
 		return false;
 	}
 
 	// Add the plugin to the list.
-	plugins.push_back(new Plugin(info));
-	delete info;
+	plugins.push_back(plugin);
+
+	plugin->OnLoad();
 
 	Unlock();
 

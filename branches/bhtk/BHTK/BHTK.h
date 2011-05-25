@@ -1,8 +1,9 @@
 #pragma once
-#include "Interface\IBHTK.h"
-#include "Interface\IPatch.h"
+#define EXPORTING
+
 #include "PluginManager.h"
 #include <Windows.h>
+#include "Exports.h"
 
 struct cGuardModule
 {	
@@ -14,22 +15,15 @@ struct cGuardModule
 	char szPath[MAX_PATH];
 };
 
-class BHTK : public IBHTK {
-	private:
-		static BHTK* bhtk;
-		std::wstring path;
-		HINSTANCE instance;
-		bool cGuardLoaded;
-		PluginManager* pluginManager;
-	public:
-		bool Startup(HMODULE instance, VOID* reserved);
-		bool Shutdown();
+namespace BHTK {
+	EXPORT VAR std::wstring path;
+	VAR HINSTANCE instance;
+	EXPORT VAR bool cGuardLoaded;
+	VAR PluginManager* pluginManager;
 
-		// Interface functions
-		void Print(std::wstring text);
+	bool Startup(HMODULE instance, VOID* reserved);
+	bool Shutdown();
 
-		// Class Factories
-		IPatch* NewPatch(PatchType type, Dll dll, int offset, int function, int length);
-
-		static BHTK* GetInstance();
+	// Interface functions
+	EXPORT void Print(std::wstring text);
 };
