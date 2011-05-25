@@ -1,14 +1,15 @@
 #include "D2Ptrs.h"
 #include "BHTK.h"
 #include "D2Stubs.h"
+#include "Drawing.h"
 
 Control* pD2WinEditBox;
 void CheckD2WinEditBox();
 
 void GameDraw() {
 	__raise BHTK::pluginManager->OnDraw();
-	//Drawing::UI::Draw();
-	//Drawing::Hook::Draw(Drawing::InGame);
+	Drawing::UI::Draw();
+	Drawing::Hook::Draw(Drawing::InGame);
 }
 
 void GameAutomapDraw() {
@@ -16,7 +17,7 @@ void GameAutomapDraw() {
 }
 
 void OOGDraw() {
-	//Drawing::Hook::Draw(Drawing::OutOfGame);
+	Drawing::Hook::Draw(Drawing::OutOfGame);
 	__raise BHTK::pluginManager->OnOOGDraw();
 }
 
@@ -45,47 +46,47 @@ LONG WINAPI GameWindowEvent(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
 	int mouseY = (*p_D2CLIENT_MouseY);
 	
 	if (uMsg == WM_LBUTTONDOWN) {
-		/*if (Drawing::Hook::LeftClick(false, mouseX, mouseY))
+		if (Drawing::Hook::LeftClick(false, mouseX, mouseY))
 			blockEvent = true;
 		if (Drawing::UI::LeftClick(false, mouseX, mouseY))
-			blockEvent = true;*/
+			blockEvent = true;
 		__raise BHTK::pluginManager->OnLeftClick(false, mouseX, mouseY, &blockEvent);
 	}
 
 	if (uMsg == WM_LBUTTONUP) {
-		/*if (Drawing::Hook::LeftClick(true, mouseX, mouseY))
+		if (Drawing::Hook::LeftClick(true, mouseX, mouseY))
 			blockEvent = true;
 		if (Drawing::UI::LeftClick(true, mouseX, mouseY))
-			blockEvent = true;*/
+			blockEvent = true;
 		__raise BHTK::pluginManager->OnLeftClick(true, mouseX, mouseY, &blockEvent);
 	}
 
 	if (uMsg == WM_RBUTTONDOWN) {
-		/*if (Drawing::Hook::RightClick(false, mouseX, mouseY))
+		if (Drawing::Hook::RightClick(false, mouseX, mouseY))
 			blockEvent = true;
 		if (Drawing::UI::RightClick(false, mouseX, mouseY))
-			blockEvent = true;*/
+			blockEvent = true;
 		__raise BHTK::pluginManager->OnRightClick(false, mouseX, mouseY, &blockEvent);
 	}
 
 	if (uMsg == WM_RBUTTONUP) {
-		/*if (Drawing::Hook::RightClick(true, mouseX, mouseY))
+		if (Drawing::Hook::RightClick(true, mouseX, mouseY))
 			blockEvent = true;
 		if (Drawing::UI::RightClick(true, mouseX, mouseY))
-			blockEvent = true;*/
+			blockEvent = true;
 		__raise BHTK::pluginManager->OnRightClick(true, mouseX, mouseY, &blockEvent);
 	}
 
 	if (!D2CLIENT_GetUIState(0x05)) {
 		if (uMsg == WM_KEYDOWN) {
-		//	if (Drawing::Hook::KeyClick(false, wParam, lParam))
-			//	return NULL;
+			if (Drawing::Hook::KeyClick(false, wParam, lParam))
+				return NULL;
 			__raise BHTK::pluginManager->OnKey(false, wParam, lParam, &blockEvent);
 		}
 
 		if (uMsg == WM_KEYUP) {
-			//if (Drawing::Hook::KeyClick(true, wParam, lParam))
-			//	return NULL;
+			if (Drawing::Hook::KeyClick(true, wParam, lParam))
+				return NULL;
 			__raise BHTK::pluginManager->OnKey(true, wParam, lParam, &blockEvent);
 		}
 	}

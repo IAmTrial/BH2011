@@ -4,6 +4,7 @@
 #include "BHTK.h"
 #include "Patch.h"
 #include "D2Ptrs.h"
+#include "Drawing.h"
 
 using namespace std;
 
@@ -42,10 +43,12 @@ PluginTest::PluginTest() : Plugin(L"Test Plugin", L"McGod", 1.0) {
 void PluginTest::OnLoad() {
 	infravision->Install();
 	BHTK::Print(L"PluginTest: Patched Infravision");
+	Drawing::UITab* test = new Drawing::UITab(L"TestPlugin", BHTK::GetSettingsUI());
+	int value = BHTK::GetConfig()->ReadInt(L"Test", 1);
 }
 
 void PluginTest::OnOOGDraw() {
-	D2WIN_DrawText(L"Test", 100, 100, 3, 0);
+	Drawing::Texthook::Draw(100, 100, Drawing::Center, 0, Drawing::Red, L"ÿc2Hello World!");
 }
 
 BOOL WINAPI DllMain(HINSTANCE hDll,DWORD dwReason,LPVOID lpReserved) {

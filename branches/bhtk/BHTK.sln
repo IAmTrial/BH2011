@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BHTK", "BHTK\BHTK.vcxproj", "{835E3B68-4178-4107-8603-2BC05F5A0FC1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestPlugin", "TestPlugin\TestPlugin.vcxproj", "{FEF17818-27CA-4A0A-8526-9FCA513FF1F4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{835E3B68-4178-4107-8603-2BC05F5A0FC1} = {835E3B68-4178-4107-8603-2BC05F5A0FC1}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -26,6 +26,48 @@
     <ClCompile Include="PluginManager.cpp">
       <Filter>BHTK\Plugin\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Drawing\Hook.cpp">
+      <Filter>Diablo\Drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawing\UI\UI.cpp">
+      <Filter>Diablo\Drawing\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawing\UI\UITab.cpp">
+      <Filter>Diablo\Drawing\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawing\Basic\Boxhook\Boxhook.cpp">
+      <Filter>Diablo\Drawing\Basic\Boxhook</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawing\Basic\Crosshook\Crosshook.cpp">
+      <Filter>Diablo\Drawing\Basic\Crosshook</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawing\Basic\Framehook\Framehook.cpp">
+      <Filter>Diablo\Drawing\Basic\Framehook</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawing\Basic\Linehook\Linehook.cpp">
+      <Filter>Diablo\Drawing\Basic\Linehook</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawing\Basic\Texthook\Texthook.cpp">
+      <Filter>Diablo\Drawing\Basic\Texthook</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawing\Advanced\Checkhook\Checkhook.cpp">
+      <Filter>Diablo\Drawing\Advanced\Checkhook</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawing\Advanced\Colorhook\Colorhook.cpp">
+      <Filter>Diablo\Drawing\Advanced\Colorhook</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawing\Advanced\Combohook\Combohook.cpp">
+      <Filter>Diablo\Drawing\Advanced\Combohook</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawing\Advanced\Inputhook\Inputhook.cpp">
+      <Filter>Diablo\Drawing\Advanced\Inputhook</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawing\Advanced\Keyhook\Keyhook.cpp">
+      <Filter>Diablo\Drawing\Advanced\Keyhook</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Config</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BHTK.h">
@@ -61,6 +103,51 @@
     <ClInclude Include="PluginManager.h">
       <Filter>BHTK\Plugin\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Drawing\Hook.h">
+      <Filter>Diablo\Drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing\UI\UI.h">
+      <Filter>Diablo\Drawing\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing\UI\UITab.h">
+      <Filter>Diablo\Drawing\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing\Basic\Boxhook\Boxhook.h">
+      <Filter>Diablo\Drawing\Basic\Boxhook</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing\Basic\Crosshook\Crosshook.h">
+      <Filter>Diablo\Drawing\Basic\Crosshook</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing\Basic\Framehook\Framehook.h">
+      <Filter>Diablo\Drawing\Basic\Framehook</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing\Basic\Linehook\Linehook.h">
+      <Filter>Diablo\Drawing\Basic\Linehook</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing\Basic\Texthook\Texthook.h">
+      <Filter>Diablo\Drawing\Basic\Texthook</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing\Advanced\Checkhook\Checkhook.h">
+      <Filter>Diablo\Drawing\Advanced\Checkhook</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing\Advanced\Colorhook\Colorhook.h">
+      <Filter>Diablo\Drawing\Advanced\Colorhook</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing\Advanced\Combohook\Combohook.h">
+      <Filter>Diablo\Drawing\Advanced\Combohook</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing\Advanced\Inputhook\Inputhook.h">
+      <Filter>Diablo\Drawing\Advanced\Inputhook</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing\Advanced\Keyhook\Keyhook.h">
+      <Filter>Diablo\Drawing\Advanced\Keyhook</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing.h">
+      <Filter>Diablo</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Config</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="BHTK">
@@ -89,6 +176,51 @@
     </Filter>
     <Filter Include="BHTK\Plugin\Manager">
       <UniqueIdentifier>{c1a50b03-adf1-4e48-866f-f1b351e3190c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo\Drawing">
+      <UniqueIdentifier>{c3d6a599-e2de-43f8-a8eb-9a51544db47c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo\Drawing\Basic">
+      <UniqueIdentifier>{050c9156-d717-4a99-aeb2-6d550975a010}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo\Drawing\Advanced">
+      <UniqueIdentifier>{6cbd3aba-82fe-4dcd-8209-88ae0604089b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo\Drawing\UI">
+      <UniqueIdentifier>{ba1dabdc-affe-4548-8d30-373845cd8b92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo\Drawing\Basic\Boxhook">
+      <UniqueIdentifier>{3cb2e4d1-a478-46fa-a6dc-e7fbb1eb141c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo\Drawing\Basic\Crosshook">
+      <UniqueIdentifier>{9a29131e-b971-4e11-9b66-cc4b5e6927d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo\Drawing\Basic\Framehook">
+      <UniqueIdentifier>{8e728402-8178-4653-a459-5b8f28a42ee1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo\Drawing\Basic\Texthook">
+      <UniqueIdentifier>{9af96bd1-7702-4a89-9ce6-25175f2b66a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo\Drawing\Basic\Linehook">
+      <UniqueIdentifier>{825dc977-0062-4371-96b8-e2468f1bb4bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo\Drawing\Advanced\Checkhook">
+      <UniqueIdentifier>{e75659e6-3db0-468d-917f-f8bcf8c17c6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo\Drawing\Advanced\Colorhook">
+      <UniqueIdentifier>{22034c9c-8e6e-4573-9f7b-20e7a3c2bab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo\Drawing\Advanced\Combohook">
+      <UniqueIdentifier>{04c41360-60cb-4840-a8dc-0f9182c61196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo\Drawing\Advanced\Inputhook">
+      <UniqueIdentifier>{b9252771-79b3-4a81-9341-a5cc94858b26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diablo\Drawing\Advanced\Keyhook">
+      <UniqueIdentifier>{0fea0569-965e-488f-80f0-eaae9b3579d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{1e744caf-d508-489a-9d57-0a5181b4b00c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

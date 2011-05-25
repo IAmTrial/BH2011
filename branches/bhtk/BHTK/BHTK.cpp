@@ -8,6 +8,7 @@
 #include "Common.h"
 #include "D2Handlers.h"
 #include "D2Intercepts.h"
+#include "Drawing.h"
 
 Patch* patches[] = {
 	new Patch(Call, D2CLIENT, 0x44230, (int)GameLoop_Interception, 7),
@@ -41,6 +42,8 @@ bool BHTK::Startup(HMODULE instance, VOID* reserved) {
 	}
 
 	pluginManager = new PluginManager(path);
+	config = new Config(L"BHTK.cfg");
+	config->Parse();
 
 	for (int n = 0; n < (sizeof(patches) / sizeof(Patch*)); n++) {
 		patches[n]->Install();
@@ -53,6 +56,8 @@ bool BHTK::Startup(HMODULE instance, VOID* reserved) {
 
 	CreateThread(0,0,GameThread, 0,0,0);
 
+	BHTK::settingsUI = new Drawing::UI(L"Settings", 350, 200);
+
 	pluginManager->Load(L"TestPlugin");
 
 	return true;
@@ -64,4 +69,20 @@ bool BHTK::Shutdown() {
 
 void BHTK::Print(std::wstring text) {
 	D2CLIENT_PrintGameString((wchar_t*)text.c_str(), 0);
+}
+
+std::wstring BHTK::GetPath() {
+	return path;
+}
+
+bool BHTK::IsGuarded() {
+	return cGuardLoaded;
+}
+
+Drawing::UI* BHTK::GetSettingsUI() {
+	return settingsUI;
+}
+
+Config* BHTK::GetConfig() {
+	return config;
 }
