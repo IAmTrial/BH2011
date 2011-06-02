@@ -97,6 +97,9 @@
     <Filter Include="BH\Modules\Item">
       <UniqueIdentifier>{708dbccd-f079-4e45-98f5-2e9bb7bc0300}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BH\Modules\SpamFilter">
+      <UniqueIdentifier>{2baee377-6450-46b3-842d-8d3ba58b5074}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DllMain.cpp">
@@ -185,6 +188,12 @@
     </ClCompile>
     <ClCompile Include="Modules\Item\Item.cpp">
       <Filter>BH\Modules\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\SpamFilter\Bayes.cpp">
+      <Filter>BH\Modules\SpamFilter</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\SpamFilter\SpamFilter.cpp">
+      <Filter>BH\Modules\SpamFilter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +292,12 @@
     </ClInclude>
     <ClInclude Include="Modules\Item\Item.h">
       <Filter>BH\Modules\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\SpamFilter\Bayes.h">
+      <Filter>BH\Modules\SpamFilter</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\SpamFilter\SpamFilter.h">
+      <Filter>BH\Modules\SpamFilter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

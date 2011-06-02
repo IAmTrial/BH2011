@@ -2,6 +2,8 @@
 #include "BH.h"
 #include "D2Stubs.h"
 
+#include <iterator>
+
 void GameDraw() {
 	__raise BH::moduleManager->OnDraw();
 	Drawing::UI::Draw();
@@ -103,10 +105,61 @@ BOOL __fastcall RealmPacketRecv(BYTE* pPacket) {
 }
 
 DWORD __fastcall GamePacketRecv(BYTE* pPacket, DWORD dwSize) {
-	if (!BH::cGuardLoaded && pPacket[0] == 0xAE) {
-		return false;
+	switch(pPacket[0])
+	{
+		case 0xAE: if(!BH::cGuardLoaded) return false; break;
+		case 0x26: {
+			char* pName = (char*)pPacket+10;
+			char* pMessage = (char*)pPacket + strlen(pName) + 11;
+			bool blockMessage = false;
+			__raise BH::moduleManager->OnChatMsg(pName, pMessage, true, &blockMessage);
+			} break;
 	}
 	bool blockPacket = false;
 	__raise BH::moduleManager->OnGamePacketRecv(pPacket, &blockPacket);
 	return !blockPacket;
+}
+
+DWORD __fastcall GameInput(wchar_t* wMsg)
+{
+	bool hasCmd = wcslen(wMsg) > 1 && wMsg[0] == '.';
+	if(hasCmd)
+	{
+		wchar_t *buf = wMsg+1, *ctx = NULL, *seps = L" ";
+		wchar_t* token = wcstok_s(buf, seps, &ctx);
+		wchar_t* wparam = buf+wcslen(token)+1;
+		int len = wcslen(wparam)+1;
+		if(len > 0)
+		{
+			if(!BH::moduleManager->UserInput(token, wparam, true)) hasCmd = false;
+		}
+	}
+
+	return hasCmd ? -1 : 0;
+}
+
+DWORD __fastcall ChannelInput(wchar_t* wMsg)
+{
+	bool hasCmd = wcslen(wMsg) > 1 && wMsg[0] == '.';
+	if(hasCmd)
+	{
+		wchar_t *buf = wMsg+1, *ctx = NULL, *seps = L" ";
+		wchar_t* token = wcstok_s(buf, seps, &ctx);
+		wchar_t* wparam = buf+wcslen(token)+1;
+		int len = wcslen(wparam)+1;
+		if(len > 0)
+		{
+			if(!BH::moduleManager->UserInput(token, wparam, false)) hasCmd = false;
+			D2WIN_SetControlText(*p_D2WIN_ChatInputBox, L"");
+		}
+	}
+
+	return hasCmd ? FALSE : TRUE;
+}
+
+BOOL __fastcall ChatHandler(char* user, char* msg)
+{
+	bool block = false;
+	__raise BH::moduleManager->OnChatMsg(user, msg, false, &block);
+	return block;
 }

@@ -14,7 +14,7 @@ Drawing::UI* BH::settingsUI;
 bool BH::cGuardLoaded;
 WNDPROC BH::OldWNDPROC;
 
-Patch* patchs[] = {
+Patch* patches[] = {
 	new Patch(Call, D2CLIENT, 0x44230, (int)GameLoop_Interception, 7),
 
 	new Patch(Jump, D2CLIENT, 0xC3DB4,	(int)GameDraw_Interception, 6),
@@ -24,6 +24,11 @@ Patch* patchs[] = {
 	new Patch(Call, BNCLIENT, 0xEABC, (int)ChatPacketRecv_Interception, 12),
 	new Patch(Call, D2MCPCLIENT, 0x69D7, (int)RealmPacketRecv_Interception, 5),
 	new Patch(Call, D2CLIENT, 0xACE61, (int)GamePacketRecv_Interception, 5),
+	new Patch(Call, D2CLIENT, 0x70B75, (int)GameInput_Interception, 5),
+	new Patch(Call, D2MULTI, 0xD753, (int)ChannelInput_Interception, 5),
+	new Patch(Call, D2MULTI, 0x10781, (int)ChannelWhisper_Interception, 5),
+	new Patch(Jump, D2MULTI, 0x108A0, (int)ChannelChat_Interception, 6),
+	new Patch(Jump, D2MULTI, 0x107A0, (int)ChannelEmote_Interception, 6),
 
 };
 
@@ -50,8 +55,8 @@ bool BH::Startup(HINSTANCE instance, VOID* reserved) {
 	config = new Config("BH.cfg");
 	config->Parse();
 
-	for (int n = 0; n < (sizeof(patchs) / sizeof(Patch*)); n++) {
-		patchs[n]->Install();
+	for (int n = 0; n < (sizeof(patches) / sizeof(Patch*)); n++) {
+		patches[n]->Install();
 	}
 
 
@@ -67,6 +72,7 @@ bool BH::Startup(HINSTANCE instance, VOID* reserved) {
 	new Gamefilter();
 	new Bnet();
 	new Item();
+	new SpamFilter();
 
 	CreateThread(0,0,GameThread, 0,0,0);
 
@@ -83,8 +89,8 @@ bool BH::Shutdown() {
 	delete settingsUI;
 
 	SetWindowLong(D2GFX_GetHwnd(),GWL_WNDPROC,(LONG)BH::OldWNDPROC);
-	for (int n = 0; n < (sizeof(patchs) / sizeof(Patch*)); n++) {
-		delete patchs[n];
+	for (int n = 0; n < (sizeof(patches) / sizeof(Patch*)); n++) {
+		delete patches[n];
 	}
 
 	delete config;
