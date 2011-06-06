@@ -9,3 +9,4 @@
 #include "Modules\Bnet\Bnet.h"
 #include "Modules\Item\Item.h"
 #include "Modules\SpamFilter\SpamFilter.h"
+#include "Modules\AutoTele\AutoTele.h"

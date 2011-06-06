@@ -97,8 +97,14 @@
     <Filter Include="BH\Modules\Item">
       <UniqueIdentifier>{708dbccd-f079-4e45-98f5-2e9bb7bc0300}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BH\Modules\AutoTele">
+      <UniqueIdentifier>{ffe5f858-beb2-4dea-bfcf-02d7f82f7640}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BH\Modules\AutoTele\ATIncludes">
+      <UniqueIdentifier>{c11d2279-0496-458c-bdf3-a5471ff32db2}</UniqueIdentifier>
+    </Filter>
     <Filter Include="BH\Modules\SpamFilter">
-      <UniqueIdentifier>{2baee377-6450-46b3-842d-8d3ba58b5074}</UniqueIdentifier>
+      <UniqueIdentifier>{e4c4be98-ecd3-4780-bd32-dbba0053421b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -189,10 +195,13 @@
     <ClCompile Include="Modules\Item\Item.cpp">
       <Filter>BH\Modules\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Modules\SpamFilter\Bayes.cpp">
-      <Filter>BH\Modules\SpamFilter</Filter>
+    <ClCompile Include="Modules\AutoTele\AutoTele.cpp">
+      <Filter>BH\Modules\AutoTele</Filter>
     </ClCompile>
     <ClCompile Include="Modules\SpamFilter\SpamFilter.cpp">
+      <Filter>BH\Modules\SpamFilter</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\SpamFilter\Bayes.cpp">
       <Filter>BH\Modules\SpamFilter</Filter>
     </ClCompile>
   </ItemGroup>
@@ -292,6 +301,27 @@
     </ClInclude>
     <ClInclude Include="Modules\Item\Item.h">
       <Filter>BH\Modules\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\AutoTele\AutoTele.h">
+      <Filter>BH\Modules\AutoTele</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\AutoTele\ATIncludes\ArrayEx.h">
+      <Filter>BH\Modules\AutoTele\ATIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\AutoTele\ATIncludes\CMapIncludes.h">
+      <Filter>BH\Modules\AutoTele\ATIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\AutoTele\ATIncludes\CollisionMap.h">
+      <Filter>BH\Modules\AutoTele\ATIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\AutoTele\ATIncludes\Matrix.h">
+      <Filter>BH\Modules\AutoTele\ATIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\AutoTele\ATIncludes\TeleportPath.h">
+      <Filter>BH\Modules\AutoTele\ATIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\AutoTele\ATIncludes\SyncObj.h">
+      <Filter>BH\Modules\AutoTele\ATIncludes</Filter>
     </ClInclude>
     <ClInclude Include="Modules\SpamFilter\Bayes.h">
       <Filter>BH\Modules\SpamFilter</Filter>
