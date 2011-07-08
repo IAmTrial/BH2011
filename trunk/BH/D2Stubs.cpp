@@ -64,3 +64,12 @@ __declspec(naked) CellFile* __fastcall D2CLIENT_LoadUiImage(CHAR* szPath)
 		RETN
 	}
 }
+
+DWORD __declspec(naked) __fastcall D2CLIENT_ClickParty_ASM(RosterUnit* RosterUnit, DWORD Mode)
+{
+	__asm
+	{
+		mov eax, ecx
+		jmp D2CLIENT_ClickParty_I
+	}
+}

@@ -729,7 +729,7 @@ void AutoTele::OnLoop() {
 				if(TeleActive) {
 					TeleActive = 0;
 					TPath.RemoveAll();
-					PrintText(1, "Aborting teleport, deselected teleport");
+					PrintText(1, "ÿc4AutoTele:ÿc1 Aborting teleport, deselected teleport");
 					return;
 				}
 				if((GetTickCount() - _timer) > 1000) {

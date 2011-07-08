@@ -106,6 +106,9 @@
     <Filter Include="BH\Modules\SpamFilter">
       <UniqueIdentifier>{e4c4be98-ecd3-4780-bd32-dbba0053421b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BH\Modules\Party">
+      <UniqueIdentifier>{a3450bb5-084b-42dd-b29d-0ef11e7a976d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DllMain.cpp">
@@ -203,6 +206,9 @@
     </ClCompile>
     <ClCompile Include="Modules\SpamFilter\Bayes.cpp">
       <Filter>BH\Modules\SpamFilter</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Party\Party.cpp">
+      <Filter>BH\Modules\Party</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -328,6 +334,9 @@
     </ClInclude>
     <ClInclude Include="Modules\SpamFilter\SpamFilter.h">
       <Filter>BH\Modules\SpamFilter</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Party\Party.h">
+      <Filter>BH\Modules\Party</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
