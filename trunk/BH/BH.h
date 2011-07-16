@@ -4,6 +4,7 @@
 #include "Modules/ModuleManager.h"
 #include "Config.h"
 #include "Drawing.h"
+#include "Patch.h"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ namespace BH {
 	extern Drawing::UI* settingsUI;
 	extern WNDPROC OldWNDPROC;
 	extern bool cGuardLoaded;
+	extern Patch* oogDraw;
 
 	extern bool Startup(HINSTANCE instance, VOID* reserved);
 	extern bool Shutdown();

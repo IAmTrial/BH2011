@@ -212,9 +212,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D2Ptrs.h">
-      <Filter>Diablo II</Filter>
-    </ClInclude>
     <ClInclude Include="D2Structs.h">
       <Filter>Diablo II</Filter>
     </ClInclude>
@@ -337,6 +334,9 @@
     </ClInclude>
     <ClInclude Include="Modules\Party\Party.h">
       <Filter>BH\Modules\Party</Filter>
+    </ClInclude>
+    <ClInclude Include="D2Ptrs.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

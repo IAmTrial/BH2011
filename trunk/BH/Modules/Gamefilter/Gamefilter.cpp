@@ -16,9 +16,11 @@ Patch* destoryGameList = new Patch(Call, D2MULTI, 0x11DC3, (int)Gamefilter::Dest
 Patch* listRefresh = new Patch(Call, D2MULTI, 0xDF4E, (int)D2MULTI_GameListRefresh_Interception, 5);
 
 void Gamefilter::OnLoad() {
-	createGameBox->Install();
-	destoryGameList->Install();
-	listRefresh->Install();
+	if (!D2CLIENT_GetPlayerUnit()) {
+		createGameBox->Install();
+		destoryGameList->Install();
+		listRefresh->Install();
+	}
 	refreshTime = BH::config->ReadInt("GameListRefresh", 1500);
 }
 
@@ -26,6 +28,18 @@ void Gamefilter::OnUnload() {
 	createGameBox->Remove();
 	destoryGameList->Remove();
 	listRefresh->Remove();
+}
+
+void Gamefilter::OnGameJoin(const string& name, const string& pass, int diff) {
+	createGameBox->Remove();
+	destoryGameList->Remove();
+	listRefresh->Remove();
+}
+
+void Gamefilter::OnGameExit() {
+	createGameBox->Install();
+	destoryGameList->Install();
+	listRefresh->Install();
 }
 
 void Gamefilter::OnRealmPacketRecv(BYTE* pPacket, bool* blockPacket) {

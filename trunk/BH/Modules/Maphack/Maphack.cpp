@@ -246,6 +246,7 @@ void Maphack::OnAutomapDraw() {
 
 void Maphack::OnGameJoin(const string& name, const string& pass, int diff) {
 	ResetRevealed();
+	automapLevels.clear();
 }
 
 void Maphack::RevealGame() {

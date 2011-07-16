@@ -18,7 +18,7 @@ void Bnet::OnLoad() {
 		nextGame2->Install();
 	}
 
-	if (failToJoin > 0)
+	if (failToJoin > 0 && !D2CLIENT_GetPlayerUnit())
 		ftjPatch->Install();		
 }
 
@@ -32,6 +32,20 @@ void Bnet::OnUnload() {
 void Bnet::OnGameJoin(const string& name, const string& pass, int diff) {
 	if (name.length() > 0)
 		lastName = name;
+	ftjPatch->Remove();
+
+	nextGame1->Remove();
+	nextGame2->Remove();
+}
+
+void Bnet::OnGameExit() {
+	if (failToJoin > 0)
+		ftjPatch->Install();
+
+	if (showLastGame) {
+		nextGame1->Install();
+		nextGame2->Install();
+	}
 }
 
 VOID __fastcall Bnet::NextGamePatch(Control* box, BOOL (__stdcall *FunCallBack)(Control*,DWORD,DWORD)) {

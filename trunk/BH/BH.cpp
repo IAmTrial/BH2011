@@ -19,7 +19,6 @@ Patch* patches[] = {
 
 	new Patch(Jump, D2CLIENT, 0xC3DB4,	(int)GameDraw_Interception, 6),
 	new Patch(Jump, D2CLIENT, 0x626C9, (int)GameAutomapDraw_Interception, 5),
-	new Patch(Call, D2WIN, 0x18911, (int)OOGDraw_Interception, 5),
 
 	new Patch(Call, BNCLIENT, 0xEABC, (int)ChatPacketRecv_Interception, 12),
 	new Patch(Call, D2MCPCLIENT, 0x69D7, (int)RealmPacketRecv_Interception, 5),
@@ -31,6 +30,8 @@ Patch* patches[] = {
 	new Patch(Jump, D2MULTI, 0x107A0, (int)ChannelEmote_Interception, 6),
 
 };
+
+Patch* BH::oogDraw = new Patch(Call, D2WIN, 0x18911, (int)OOGDraw_Interception, 5);
 
 unsigned int index = 0;
 bool BH::Startup(HINSTANCE instance, VOID* reserved) {
@@ -59,6 +60,8 @@ bool BH::Startup(HINSTANCE instance, VOID* reserved) {
 		patches[n]->Install();
 	}
 
+	if (!D2CLIENT_GetPlayerUnit())
+		oogDraw->Install();
 
 	if(D2GFX_GetHwnd()) {
 		BH::OldWNDPROC = (WNDPROC)GetWindowLong(D2GFX_GetHwnd(),GWL_WNDPROC);
@@ -94,6 +97,8 @@ bool BH::Shutdown() {
 	for (int n = 0; n < (sizeof(patches) / sizeof(Patch*)); n++) {
 		delete patches[n];
 	}
+
+	oogDraw->Remove();
 
 	delete config;
 
