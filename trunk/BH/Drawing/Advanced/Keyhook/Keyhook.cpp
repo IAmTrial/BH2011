@@ -43,8 +43,13 @@ bool Keyhook::OnLeftClick(bool up, unsigned int x, unsigned int y) {
 void Keyhook::OnDraw() {
 	KeyCode keyCode = GetKeyCode(GetKey());
 	string prefix = "";
-	if (name.length() > 0)
-		prefix = name + ":ÿc4 ";
+	bool IsInRange = InRange(*p_D2CLIENT_MouseX, *p_D2CLIENT_MouseY);
+	if (name.length() > 0) {
+		if(IsInRange)
+			prefix = name + ":ÿc7 ";
+		else
+			prefix = name + ":ÿc4 ";
+	}
 
 	string text = prefix + keyCode.literalName;
 	if (timeout) {
@@ -57,7 +62,7 @@ void Keyhook::OnDraw() {
 	}
 	DWORD size = D2WIN_SetTextSize(0);
 	wchar_t* keyText = AnsiToUnicode(text.c_str());
-	D2WIN_DrawText(keyText, GetX(), GetY() + 10, InRange(*p_D2CLIENT_MouseX, *p_D2CLIENT_MouseY)?7:4, 0);
+	D2WIN_DrawText(keyText, GetX(), GetY() + 10, IsInRange?7:4, 0);
 	delete[] keyText;
 	D2WIN_SetTextSize(size);
 }

@@ -192,24 +192,26 @@ void SpamFilter::OnUserInput(const wchar_t* msg, bool fromGame, bool* parsed)
 
 void SpamFilter::OnChatMsg(const char* szAcc, const char* szText, bool fromGame, bool* block)
 {
-	time_t currentTime;
-	time(&currentTime);
-	char szTime[60] = "";
-	struct tm time;
-	localtime_s(&time, &currentTime);
-	strftime(szTime, sizeof(szTime), "%x %X", &time);
+	if(Toggles["Enabled"].state) {
+		time_t currentTime;
+		time(&currentTime);
+		char szTime[60] = "";
+		struct tm time;
+		localtime_s(&time, &currentTime);
+		strftime(szTime, sizeof(szTime), "%x %X", &time);
 
-	int cat = bayes.Categorize(szText);
-	*block = cat == -1;
+		int cat = bayes.Categorize(szText);
+		*block = cat == -1;
 
-	if(Toggles["Log Chat"].state && (!block || (block && Toggles["Log Blocks"].state)))
-	{
-		FILE* chatlog = NULL;
-		fopen_s(&chatlog, log.c_str(), "a+");
-		char* pos = strchr(const_cast<char*>(szAcc), '*');
-		if(pos != NULL && pos != szAcc)
-			*pos = '\0';
-		fprintf(chatlog, "[%s] %s%s: %s\n", szTime, (block ? "BLOCKING: " : ""), szAcc, szText);
-		fclose(chatlog);
+		if(Toggles["Log Chat"].state && (!block || (block && Toggles["Log Blocks"].state)))
+		{
+			FILE* chatlog = NULL;
+			fopen_s(&chatlog, log.c_str(), "a+");
+			char* pos = strchr(const_cast<char*>(szAcc), '*');
+			if(pos != NULL && pos != szAcc)
+				*pos = '\0';
+			fprintf(chatlog, "[%s] %s%s: %s\n", szTime, (block ? "BLOCKING: " : ""), szAcc, szText);
+			fclose(chatlog);
+		}
 	}
 }

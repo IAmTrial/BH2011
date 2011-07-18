@@ -33,7 +33,7 @@ int GetRelation(UnitAny* unit) {
 				return 3;//Partied
 			
 			// Check if unit is hostile towards us
-			if (D2CLIENT_TestPvpFlag(unit->dwUnitId, player->dwUnitId, 8))
+			if (TestPvpFlag_STUB(unit->dwUnitId, player->dwUnitId, 8))
 				return 4;
 
 			return 2;

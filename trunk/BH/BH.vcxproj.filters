@@ -338,5 +338,8 @@
     <ClInclude Include="D2Ptrs.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Modules\AutoTele\ATIncludes\Vectors.h">
+      <Filter>BH\Modules\AutoTele\ATIncludes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
