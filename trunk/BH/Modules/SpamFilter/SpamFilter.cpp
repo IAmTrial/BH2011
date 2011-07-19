@@ -14,15 +14,15 @@
 void SpamFilter::OnLoad()
 {
 	// load the token database and settings, maybe check for updates?
-	Config spamfilter(BH::config->ReadAssoc("Spam Filter"));
-	log = spamfilter.ReadString("Log File", "chatlog.txt");
-	url = spamfilter.ReadString("Update URL", "");
-	bayes = Bayes(spamfilter.ReadString("Token DB", "tokens.db").c_str());
+	//Config spamfilter(BH::config->ReadAssoc("Spam Filter"));
+	log = BH::config->ReadString("Log File", "chatlog.txt");
+	url = BH::config->ReadString("Update URL", "");
+	bayes = Bayes(BH::config->ReadString("Token DB", "tokens.db").c_str());
 
-	Toggles["Log Chat"] = spamfilter.ReadToggle("Log Chat", "None", false);
-	Toggles["Log Blocks"] = spamfilter.ReadToggle("Log Blocked Messages", "None", false);
-	Toggles["Enabled"] = spamfilter.ReadToggle("Enabled", "None", false);
-	Toggles["Autosave"] = spamfilter.ReadToggle("Autosave Databases", "None", false);
+	Toggles["Log Chat"] = BH::config->ReadToggle("Log Chat", "None", false);
+	Toggles["Log Blocks"] = BH::config->ReadToggle("Log Blocked Messages", "None", false);
+	Toggles["Enabled"] = BH::config->ReadToggle("Enabled", "None", false);
+	Toggles["Autosave"] = BH::config->ReadToggle("Autosave Databases", "None", false);
 }
 
 void SpamFilter::OnUnload()

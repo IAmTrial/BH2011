@@ -40,7 +40,7 @@ int Bayes::Categorize(const string& item)
 	Tokens tokens;
 
 	Tokenize(item, tokens);
-
+	
 	vector<double> probs;
 	int i = 0;
 	for(TokensIter it = tokens.begin(); it != tokens.end(); it++)
@@ -113,8 +113,9 @@ void Bayes::Tokenize(const string& item, Tokens& tokens)
 	char *str = _strdup(item.c_str()), *ctx = NULL;
 
 	char* token = strtok_s(str, delims, &ctx);
-	int toklen = strlen(token);
-	do { tokens.push_back(string(token)); } while((token = strtok_s(NULL, delims, &ctx)) != NULL);
+
+	if(token != NULL)
+		do { tokens.push_back(string(token)); } while((token = strtok_s(NULL, delims, &ctx)) != NULL);
 
 	free(str);
 }
