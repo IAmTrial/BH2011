@@ -9,7 +9,7 @@ typedef TokenList::iterator TokenIter;
 typedef Tokens::iterator TokensIter;
 typedef TokenProb::iterator TokenPIter;
 
-char* Bayes::delims = " .,;\"\'!@#$%^*(){}[]:|\\/?`~-_=+<>";
+char* Bayes::delims = " .,;\"\'!@#$%^*(){}[]:|\\/?`~+<>";
 
 Bayes::Bayes() : tm(0)
 {
@@ -40,7 +40,7 @@ int Bayes::Categorize(const string& item)
 	Tokens tokens;
 
 	Tokenize(item, tokens);
-	
+
 	vector<double> probs;
 	int i = 0;
 	for(TokensIter it = tokens.begin(); it != tokens.end(); it++)
@@ -112,10 +112,8 @@ void Bayes::Tokenize(const string& item, Tokens& tokens)
 {
 	char *str = _strdup(item.c_str()), *ctx = NULL;
 
-	char* token = strtok_s(str, delims, &ctx);
-
-	if(token != NULL)
-		do { tokens.push_back(string(token)); } while((token = strtok_s(NULL, delims, &ctx)) != NULL);
+	char* token = NULL;
+	while((token = strtok_s(NULL, delims, &ctx)) != NULL) { tokens.push_back(string(token)); }
 
 	free(str);
 }
