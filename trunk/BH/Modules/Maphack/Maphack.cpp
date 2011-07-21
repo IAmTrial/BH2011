@@ -249,6 +249,124 @@ void Maphack::OnGameJoin(const string& name, const string& pass, int diff) {
 	automapLevels.clear();
 }
 
+void PrintText(DWORD Color, char *szText, ...) {
+		char szBuffer[152] = {0};
+		va_list Args;
+		va_start(Args, szText);
+		vsprintf_s(szBuffer,152, szText, Args);
+		va_end(Args); 
+		wchar_t Buffer[0x130];
+		MultiByteToWideChar(0, 1, szBuffer, 152, Buffer, 304);
+		D2CLIENT_PrintGameString(Buffer, Color);	
+}
+
+void Squelch(DWORD Id, BYTE button) {
+	LPBYTE aPacket = new BYTE[7];	//create packet
+	*(BYTE*)&aPacket[0] = 0x5d;	
+	*(BYTE*)&aPacket[1] = button;	
+	*(BYTE*)&aPacket[2] = 1;	
+	*(DWORD*)&aPacket[3] = Id;
+	D2NET_SendPacket(7, 0, aPacket);
+
+	delete [] aPacket;	//clearing up data
+
+	return;
+}
+
+void Maphack::OnGamePacketRecv(BYTE *packet, bool *block) {
+	switch (packet[0]) {
+
+
+	case 0x9c: {
+		INT64 icode   = 0;
+        char code[5]  = "";
+        BYTE mode     = packet[1];
+        DWORD gid     = *(DWORD*)&packet[4];
+        BYTE dest     = ((packet[13] & 0x1C) >> 2);
+
+        switch(dest)
+        {
+                case 0: 
+                case 2:
+                        icode = *(INT64 *)(packet+15)>>0x04;
+                        break;
+                case 3:
+                case 4:
+                case 6:
+                        if(!((mode == 0 || mode == 2) && dest == 3))
+                        {
+                                if(mode != 0xF && mode != 1 && mode != 12)
+                                        icode = *(INT64 *)(packet+17) >> 0x1C;
+                                else
+                                        icode = *(INT64 *)(packet+15) >> 0x04;
+                        } 
+                        else  
+                                icode = *(INT64 *)(packet+17) >> 0x05;
+                        break;
+                default:
+                        break;
+        }
+
+        memcpy(code, &icode, 4);
+        if(code[3] == ' ') code[3] = '\0';
+
+        //PrintText(1, "%s", code);
+
+
+		if(mode == 0x0 || mode == 0x2 || mode == 0x3) {
+			BYTE ear = packet[10] & 0x01;
+			if(ear) *block = true;
+		}
+		break;
+		}
+
+	case 0xa8:
+	case 0xa7: {
+			if(packet[1] == 0x0) {
+				if(packet[6+(packet[0]-0xa7)] == 100) {
+					UnitAny* pUnit = D2CLIENT_FindServerSideUnit(*(DWORD*)&packet[2], 0);
+					if(pUnit)
+						PrintText(1, "Alert: ÿc4Player ÿc2%s ÿc4drank a ÿc1Health ÿc4potion!", pUnit->pPlayerData->szName);
+				} else if (packet[6+(packet[0]-0xa7)] == 105) {
+					UnitAny* pUnit = D2CLIENT_FindServerSideUnit(*(DWORD*)&packet[2], 0);
+					if(pUnit)
+						if(pUnit->dwTxtFileNo == 1)
+							if(D2COMMON_GetUnitState(pUnit, 30))
+								PrintText(1, "Alert: ÿc4ES Sorc ÿc2%s ÿc4drank a ÿc3Mana ÿc4Potion!", pUnit->pPlayerData->szName);
+				} else if (packet[6+(packet[0]-0xa7)] == 102) {//remove portal delay
+					*block = true;
+				}
+			}
+			break;			   
+		}
+	case 0x94: {
+			BYTE Count = packet[1];
+			DWORD Id = *(DWORD*)&packet[2];
+			for(DWORD i = 0;i < Count;i++) {
+				BaseSkill S;
+				S.Skill = *(WORD*)&packet[6+(3*i)];
+				S.Level = *(BYTE*)&packet[8+(3*i)];
+				Skills[Id].push_back(S);
+			}
+			//for(vector<BaseSkill>::iterator it = Skills[Id].begin();  it != Skills[Id].end(); it++)
+			//	PrintText(1, "Skill %d, Level %d", it->Skill, it->Level);
+			break;
+		}
+	case 0x5b: {	//36   Player In Game      5b [WORD Packet Length] [DWORD Player Id] [BYTE Char Type] [NULLSTRING[16] Char Name] [WORD Char Lvl] [WORD Party Id] 00 00 00 00 00 00 00 00
+			WORD lvl = *(WORD*)&packet[24];
+			DWORD Id = *(DWORD*)&packet[3];
+			char* name = (char*)&packet[8];
+			UnitAny* Me = D2CLIENT_GetPlayerUnit();
+			if(!Me)
+				return;
+			else if (!strcmp(name, Me->pPlayerData->szName))
+				return;
+			if(lvl < 9)
+				Squelch(Id, 3);
+		}			//2 = mute, 3 = squelch, 4 = hostile
+	}
+}
+
 void Maphack::RevealGame() {
 	// Check if we have already revealed the game.
 	if (revealedGame)
@@ -458,6 +576,7 @@ BOOL __fastcall InfravisionPatch(UnitAny *unit)
 {
 	return false;
 }
+
 void __declspec(naked) Lighting_Interception()
 {
 	__asm {
@@ -474,8 +593,6 @@ void __declspec(naked) Lighting_Interception()
 		ret
 	}
 }
-
-
 
 void __declspec(naked) Infravision_Interception()
 {

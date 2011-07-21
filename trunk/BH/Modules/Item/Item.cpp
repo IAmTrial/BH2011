@@ -71,7 +71,7 @@ void Item::OnLoop() {
 void Item::OnKey(bool up, BYTE key, LPARAM lParam, bool* block) {
 	if (key == showPlayer) {
 		*block = true;
-		if (!up)
+		if (up)
 			return;
 		UnitAny* selectedUnit = D2CLIENT_GetSelectedUnit();
 		if (selectedUnit && selectedUnit->dwMode != 0 && selectedUnit->dwMode != 17 && selectedUnit->dwType == 0) {

@@ -14,4 +14,5 @@ class Party : public Module {
 		void OnLoad();
 		void OnUnload();
 		void OnLoop();
+		void OnKey(bool up, BYTE key, LPARAM lParam, bool* block);
 };

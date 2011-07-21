@@ -15,6 +15,11 @@ struct LevelList {
 	unsigned int x, y, act;
 };
 
+struct BaseSkill {
+	WORD Skill;
+	BYTE Level;
+};
+
 class Maphack : public Module {
 	private:
 		unsigned int revealType;
@@ -23,6 +28,7 @@ class Maphack : public Module {
 		std::list<LevelList*> automapLevels;
 		map<std::string, Toggle> Toggles;
 		Drawing::UITab* settingsTab;
+		std::map<DWORD, std::vector<BaseSkill>> Skills;
 
 	public:
 	Maphack();
@@ -34,6 +40,7 @@ class Maphack : public Module {
 	void OnLoop();
 	void OnAutomapDraw();
 	void OnGameJoin(const string& name, const string& pass, int diff);
+	void OnGamePacketRecv(BYTE* packet, bool *block);
 
 	void ResetRevealed();
 	void ResetPatches();
