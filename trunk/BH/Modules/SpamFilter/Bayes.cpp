@@ -112,8 +112,8 @@ void Bayes::Tokenize(const string& item, Tokens& tokens)
 {
 	char *str = _strdup(item.c_str()), *ctx = NULL;
 
-	char* token = NULL;
-	while((token = strtok_s(NULL, delims, &ctx)) != NULL) { tokens.push_back(string(token)); }
+	char* token = strtok_s(str, delims, &ctx);
+	if(token != NULL) do { tokens.push_back(string(token)); } while((token = strtok_s(NULL, delims, &ctx)) != NULL);
 
 	free(str);
 }
