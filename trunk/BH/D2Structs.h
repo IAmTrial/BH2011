@@ -137,7 +137,7 @@ struct Control {
    DWORD dwPosY;					//0x10
    DWORD dwSizeX;					//0x14
    DWORD dwSizeY;					//0x18
-   VOID (__fastcall *Initialize)(Control* pControl);//0x1c
+   void (__fastcall *Initialize)(Control* pControl);//0x1c
    DWORD _3;						//0x20
    DWORD *_4;						//0x24
    DWORD *_5;						//0x28

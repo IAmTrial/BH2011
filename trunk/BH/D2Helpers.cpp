@@ -13,16 +13,15 @@ RosterUnit* FindPlayerRoster(DWORD unitId) {
 int GetRelation(UnitAny* unit) {
 	UnitAny* player = D2CLIENT_GetPlayerUnit();
 	RosterUnit* roster;
+	RosterUnit* playerRoster = FindPlayerRoster(player->dwUnitId);
 
 	//Neutral = 2, Partied = 3, You = 1, Hostile = 4
 	if (!unit || !player)
 		return 2;
 
-	RosterUnit* playerRoster = FindPlayerRoster(player->dwUnitId);
-
 	switch(unit->dwType) {
 		case 0://Player
-
+			
 			// Check if we are the unit.
 			if (unit->dwUnitId == player->dwUnitId)
 				return 1;//You
@@ -42,6 +41,9 @@ int GetRelation(UnitAny* unit) {
 		case 3://Missile
 
 			if (unit->dwOwnerId < 0 || unit->dwOwnerType < 0 || unit->dwOwnerType > 5)
+				return 4;
+
+			if(unit->dwType == 1 && unit->dwOwnerType == 1)
 				return 4;
 
 			// Find the owner of the unit.

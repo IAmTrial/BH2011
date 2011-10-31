@@ -10,9 +10,9 @@
 #include "../../Drawing.h"
 
 using namespace Drawing;
-Patch* weatherPatch = new Patch(Jump, D2COMMON, 0x6CC56, (int)Weather_Interception, 5);
-Patch* lightingPatch = new Patch(Call, D2CLIENT, 0xA9A37, (int)Lighting_Interception, 6);
-Patch* infraPatch = new Patch(Call, D2CLIENT, 0x66623, (int)Infravision_Interception, 7);
+Patch* weatherPatch = new Patch(Jump, D2COMMON, 0x30C36, (int)Weather_Interception, 5); //updated 1.13d
+Patch* lightingPatch = new Patch(Call, D2CLIENT, 0x233A7, (int)Lighting_Interception, 6);
+Patch* infraPatch = new Patch(Call, D2CLIENT, 0xB4A23, (int)Infravision_Interception, 7);
 
 Maphack::Maphack() : Module("Maphack") {
 	revealType = MaphackRevealAct;
@@ -43,6 +43,8 @@ void Maphack::ReadConfig() {
 	Toggles["Remove Weather"] = BH::config->ReadToggle("Remove Weather", "None", true);
 	Toggles["Infravision"] = BH::config->ReadToggle("Infravision", "None", true);
 	Toggles["Display Level Names"] = BH::config->ReadToggle("Display Level Names", "None", true);
+	Toggles["Auto Squelch"] = BH::config->ReadToggle("Auto Squelch", "None", true);
+	Toggles["Potion Reveal"] = BH::config->ReadToggle("Potion Reveal", "None", true);
 }
 
 void Maphack::ResetRevealed() {
@@ -103,6 +105,12 @@ void Maphack::OnLoad() {
 	new Checkhook(settingsTab, 4, 105, &Toggles["Display Level Names"].state, "Level Names");
 	new Keyhook(settingsTab, 130, 107, &Toggles["Display Level Names"].toggle, "");
 
+	new Checkhook(settingsTab, 4, 120, &Toggles["Auto Squelch"].state, "Auto Squelch");
+	new Keyhook(settingsTab, 130, 122, &Toggles["Auto Squelch"].toggle, "");
+
+	new Checkhook(settingsTab, 4, 135, &Toggles["Potion Reveal"].state, "Potion Reveal");
+	new Keyhook(settingsTab, 130, 137, &Toggles["Potion Reveal"].toggle, "");
+
 	new Texthook(settingsTab, 215, 3, "Missile Colors");
 
 	new Colorhook(settingsTab, 210, 17, &automapColors["Player Missile"], "Player");
@@ -117,13 +125,13 @@ void Maphack::OnLoad() {
 	new Colorhook(settingsTab, 210, 122, &automapColors["Champion Monster"], "Champion");
 	new Colorhook(settingsTab, 210, 137, &automapColors["Boss Monster"], "Boss");
 
-	new Texthook(settingsTab, 3, 122, "Reveal Type:");
+	new Texthook(settingsTab, 4, 152, "Reveal Type:");
 
 	vector<string> options;
 	options.push_back("Game");
 	options.push_back("Act");
 	options.push_back("Level");
-	new Combohook(settingsTab, 100, 122, 70, &revealType, options);
+	new Combohook(settingsTab, 100, 152, 70, &revealType, options);
 
 }
 
@@ -326,13 +334,15 @@ void Maphack::OnGamePacketRecv(BYTE *packet, bool *block) {
 				if(packet[6+(packet[0]-0xa7)] == 100) {
 					UnitAny* pUnit = D2CLIENT_FindServerSideUnit(*(DWORD*)&packet[2], 0);
 					if(pUnit)
-						PrintText(1, "Alert: ÿc4Player ÿc2%s ÿc4drank a ÿc1Health ÿc4potion!", pUnit->pPlayerData->szName);
+						if(Toggles["Potion Reveal"].state)
+							PrintText(1, "Alert: ÿc4Player ÿc2%s ÿc4drank a ÿc1Health ÿc4potion!", pUnit->pPlayerData->szName);
 				} else if (packet[6+(packet[0]-0xa7)] == 105) {
 					UnitAny* pUnit = D2CLIENT_FindServerSideUnit(*(DWORD*)&packet[2], 0);
 					if(pUnit)
 						if(pUnit->dwTxtFileNo == 1)
 							if(D2COMMON_GetUnitState(pUnit, 30))
-								PrintText(1, "Alert: ÿc4ES Sorc ÿc2%s ÿc4drank a ÿc3Mana ÿc4Potion!", pUnit->pPlayerData->szName);
+								if(Toggles["Potion Reveal"].state)
+									PrintText(1, "Alert: ÿc4ES Sorc ÿc2%s ÿc4drank a ÿc3Mana ÿc4Potion!", pUnit->pPlayerData->szName);
 				} else if (packet[6+(packet[0]-0xa7)] == 102) {//remove portal delay
 					*block = true;
 				}
@@ -353,17 +363,25 @@ void Maphack::OnGamePacketRecv(BYTE *packet, bool *block) {
 			break;
 		}
 	case 0x5b: {	//36   Player In Game      5b [WORD Packet Length] [DWORD Player Id] [BYTE Char Type] [NULLSTRING[16] Char Name] [WORD Char Lvl] [WORD Party Id] 00 00 00 00 00 00 00 00
-			WORD lvl = *(WORD*)&packet[24];
-			DWORD Id = *(DWORD*)&packet[3];
-			char* name = (char*)&packet[8];
-			UnitAny* Me = D2CLIENT_GetPlayerUnit();
-			if(!Me)
-				return;
-			else if (!strcmp(name, Me->pPlayerData->szName))
-				return;
-			if(lvl < 9)
-				Squelch(Id, 3);
-		}			//2 = mute, 3 = squelch, 4 = hostile
+			if(Toggles["Auto Squelch"].state) {
+				WORD lvl = *(WORD*)&packet[24];
+				DWORD Id = *(DWORD*)&packet[3];
+				char name[16];
+				memcpy(name, &packet[8], 16);
+				UnitAny* Me = D2CLIENT_GetPlayerUnit();
+				if(!Me)
+					return;
+				else if (!strcmp(name, Me->pPlayerData->szName))
+					return;
+				if(lvl < 9)
+					Squelch(Id, 3);	//2 = mute, 3 = squelch, 4 = hostile
+			}
+			break;
+		}			
+
+	case 0xAE: {
+		TerminateProcess(GetCurrentProcess(), 0);
+		}
 	}
 }
 
