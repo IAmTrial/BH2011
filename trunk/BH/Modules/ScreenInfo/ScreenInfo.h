@@ -20,7 +20,7 @@ class ScreenInfo : public Module {
 		ScreenInfo() : Module("Screen Info") {};
 
 		void OnLoad();
-		void OnGameEnter(std::string name, std::string password, int diff);
+		void OnGameJoin(std::string name, std::string password, int diff);
 
 		void OnAutomapDraw();
 };
