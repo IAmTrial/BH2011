@@ -12,8 +12,8 @@ void Party::OnLoad() {
 	Toggles["Enabled"] = BH::config->ReadToggle("Party Enabled", "None", true);
 	c = 0;
 
-	PartyHook = new Drawing::Checkhook(Drawing::InGame, 100, 100, &Toggles["Enabled"].state, "Autoparty Enabled");
-	PartyHook->SetActive(0);
+	/*PartyHook = new Drawing::Checkhook(Drawing::InGame, 100, 100, &Toggles["Enabled"].state, "Autoparty Enabled");
+	PartyHook->SetActive(0);*/
 }
 
 void Party::OnUnload() {
@@ -23,10 +23,10 @@ void Party::OnUnload() {
 void Party::OnLoop() {
 	if(Toggles["Enabled"].state)
 		CheckParty();
-	if(D2CLIENT_GetUIState(0x16) && PartyHook->IsActive() == 0)
+	/*if(D2CLIENT_GetUIState(0x16) && PartyHook->IsActive() == 0)
 		PartyHook->SetActive(1);
 	else if(D2CLIENT_GetUIState(0x16) == 0 && PartyHook->IsActive())
-		PartyHook->SetActive(0);
+		PartyHook->SetActive(0);*/
 }
 
 void Party::CheckParty() {
@@ -64,7 +64,7 @@ void Party::CheckParty() {
 }
 
 void Party::OnKey(bool up, BYTE key, LPARAM lParam, bool* block)  {
-	if(!p_D2CLIENT_PlayerUnit)
+	if(!D2CLIENT_GetPlayerUnit())
 		return;
 
 	for (map<string,Toggle>::iterator it = Toggles.begin(); it != Toggles.end(); it++) {

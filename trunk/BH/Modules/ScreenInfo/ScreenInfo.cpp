@@ -17,7 +17,7 @@ void ScreenInfo::OnLoad() {
 	gameTimer = GetTickCount();
 }
 
-void ScreenInfo::OnGameJoin(std::string name, std::string password, int diff) {
+void ScreenInfo::OnGameJoin(const string& name, const string& pass, int diff) {
 	gameTimer = GetTickCount();
 }
 
