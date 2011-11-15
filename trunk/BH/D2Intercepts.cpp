@@ -7,7 +7,6 @@ VOID __declspec(naked) GameDraw_Interception()
 	{
 		call GameDraw;
 
-		POP ESI
 		POP EBX
 		POP ECX
 		RETN 4

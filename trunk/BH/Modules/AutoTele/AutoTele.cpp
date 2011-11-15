@@ -2,6 +2,8 @@
 #include "../../BH.h"
 #include "ATIncludes\CMapIncludes.h"
 #include "ATIncludes\Vectors.h"
+#include "../../D2Helpers.h"
+#include "../../D2Stubs.h"
 
 #define VALIDPTR(x) ( (x) && (!IsBadReadPtr(x,sizeof(x))) )
 
@@ -100,6 +102,9 @@ void AutoTele::OnAutomapDraw() {
 	}
 }
 
+int tpstart;
+int tpcount;
+
 void AutoTele::OnLoop() {
 
 	if(GetPlayerArea() && LastArea != GetPlayerArea() && D2CLIENT_GetPlayerUnit()) {
@@ -147,9 +152,24 @@ void AutoTele::OnLoop() {
 		if(CastTele) {
 			CastTele = 0;
 			_timer2 = GetTickCount();
+			if(D2CLIENT_GetPlayerUnit()->pInfo->pRightSkill->IsCharge)
+				if(D2CLIENT_GetPlayerUnit()->pInfo->pRightSkill->ChargesLeft == 0) {
+					TPath.RemoveAll();
+					PrintText(1, "ÿc4AutoTele:ÿc1 Stopping teleport, no charges left");
+					return;
+				}
+			if(D2CLIENT_GetPlayerUnit()->pInfo->pRightSkill->IsCharge && D2CLIENT_GetPlayerUnit()->pInfo->pRightSkill->ChargesLeft == 0) {
+				TPath.RemoveAll();
+				return;
+			}
+
 			if(!CastOnMap(static_cast<WORD>(TPath.ElementAt(0).x),static_cast<WORD>(TPath.ElementAt(0).y), false)) {
 				TPath.RemoveAll();
 				return;
+			} else {
+				if(!tpcount)
+					tpstart = GetTickCount();
+				tpcount++;
 			}
 		}
 
@@ -170,6 +190,7 @@ void AutoTele::OnLoop() {
 		if(GetDistanceSquared(D2CLIENT_GetUnitX(D2CLIENT_GetPlayerUnit()), D2CLIENT_GetUnitY(D2CLIENT_GetPlayerUnit()), TPath.ElementAt(0).x, TPath.ElementAt(0).y) <= 5) {
 			TPath.RemoveAt(0, 1);
 			CastTele = 1;
+			Try = 0;
 		}
 			
 		if(DoInteract) {
@@ -188,6 +209,10 @@ void AutoTele::OnLoop() {
 		CastTele = 1;
 		TeleActive = 0;
 		Try = 0;
+		if(tpcount) {
+			PrintText(1, "time: %d, tps: %d, time/tele: %d", GetTickCount() - tpstart, tpcount, (GetTickCount() - tpstart) / tpcount);
+			tpcount = 0;
+		}
 	}
 	if(DoInteract && SetInteract && _InteractTimer && (GetTickCount() - _InteractTimer > 150)) {
 		Interact(InteractId, InteractType);
@@ -197,7 +222,56 @@ void AutoTele::OnLoop() {
 	return;
 }
 
+int __fastcall UnitCallback (UnitAny* a, UnitAny* b) {
+	if(!a)
+		return 0;
+
+	if(a->dwType != 1)
+		return 0;
+
+	if(!IsValidMonster(a))
+		return 0;
+
+	if(D2COMMON_GetUnitStat(a, 43, 0) >= 100)
+		return 0;
+
+	if(D2COMMON_CheckUnitCollision(b, a, 1))
+		return 0;
+
+	return 1;
+}
+
+void Lol() {
+	if(!p_D2CLIENT_PlayerUnit)
+		return;
+
+	UnitAny* Me = D2CLIENT_GetPlayerUnit();
+
+	UnitAny* Mon = D2COMMON_GetClosestUnit(Me, Me->pPath->xPos, Me->pPath->yPos, 50, UnitCallback);
+
+	if(!Mon)
+		return;
+
+	if(Me->pInfo->pRightSkill->pSkillInfo->wSkillId == 59) {
+		LPBYTE aPacket = new BYTE[9];	//create packet
+		*(BYTE*)&aPacket[0] = 0x11;	//casting with left or right?
+		*(DWORD*)&aPacket[1] = Mon->dwType;	//x
+		*(DWORD*)&aPacket[5] = Mon->dwUnitId;	//y
+		D2NET_SendPacket(9, 0, aPacket);
+
+		delete [] aPacket;	//clearing up data
+	}
+
+	return;
+}
+
 void AutoTele::OnKey(bool up, BYTE key, LPARAM lParam, bool* block) {
+	if(!D2CLIENT_GetPlayerUnit())
+		return;
+
+	if(D2CLIENT_GetUIVar_STUB(0x05))
+		return;
+
 	if (key == NextKey) {
 		*block = true;
 		if (!up)
@@ -219,6 +293,15 @@ void AutoTele::OnKey(bool up, BYTE key, LPARAM lParam, bool* block) {
 			return;
 		ManageTele(vVector[GetPlayerArea()*4+Prev]);
 	}
+	
+	/*if(key == 0x45) {
+		if(!D2CLIENT_GetPlayerUnit())
+			return;
+		*block = true;
+		if (!up)
+			return;
+		Lol();
+	}*/
 }
 
 void AutoTele::OnGamePacketRecv(BYTE* packet, bool* block) {

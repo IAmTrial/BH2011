@@ -155,7 +155,7 @@ unsigned int Inputhook::GetCharacterLimit() {
 	 //Draw the cursor!
 	 CursorTick();
 	 if (ShowCursor() && IsActive())
-		 D2GFX_DrawLine(GetX() + textSize.x + 2, GetY() + 3, GetX() + textSize.x + 2, GetY() + textSize.y, 255, 0);
+		 D2GFX_DrawLine(GetX() + textSize.x + 2, GetY() + 3, GetX() + textSize.x + 2, GetY() + textSize.y, 255, -1);
 
 	 Unlock();
  }

@@ -17,7 +17,7 @@ WNDPROC BH::OldWNDPROC;
 Patch* patches[] = {
 	new Patch(Call, D2CLIENT, 0x45280, (int)GameLoop_Interception, 7),
 
-	new Patch(Jump, D2CLIENT, 0x1D7B4, (int)GameDraw_Interception, 6),
+	new Patch(Jump, D2CLIENT, 0x1D7B5, (int)GameDraw_Interception, 5),
 	new Patch(Jump, D2CLIENT, 0x73469, (int)GameAutomapDraw_Interception, 5),
 
 	//new Patch(Call, BNCLIENT, 0xEABC, (int)ChatPacketRecv_Interception, 12),
