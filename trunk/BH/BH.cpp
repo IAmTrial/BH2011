@@ -20,14 +20,15 @@ Patch* patches[] = {
 	new Patch(Jump, D2CLIENT, 0x1D7B5, (int)GameDraw_Interception, 5),
 	new Patch(Jump, D2CLIENT, 0x73469, (int)GameAutomapDraw_Interception, 5),
 
-	//new Patch(Call, BNCLIENT, 0xEABC, (int)ChatPacketRecv_Interception, 12),
-	//new Patch(Call, D2MCPCLIENT, 0x69D7, (int)RealmPacketRecv_Interception, 5),
-	new Patch(Call, D2CLIENT, 0x83301, (int)GamePacketRecv_Interception, 5),
-	new Patch(Call, D2CLIENT, 0xB24FF, (int)GameInput_Interception, 5),
-	/*new Patch(Call, D2MULTI, 0x11D63, (int)ChannelInput_Interception, 5),
-	new Patch(Call, D2MULTI, 0x14A9A, (int)ChannelWhisper_Interception, 5),
-	new Patch(Jump, D2MULTI, 0x14BE0, (int)ChannelChat_Interception, 6),
-	new Patch(Jump, D2MULTI, 0x14850, (int)ChannelEmote_Interception, 6),*/
+	new Patch(Call, BNCLIENT, 0xCEBC, (int)ChatPacketRecv_Interception, 12),//updated
+	new Patch(Call, D2MCPCLIENT, 0x6297, (int)RealmPacketRecv_Interception, 5),//updated
+
+		new Patch(Call, D2CLIENT, 0x83301, (int)GamePacketRecv_Interception, 5),
+		new Patch(Call, D2CLIENT, 0xB24FF, (int)GameInput_Interception, 5),
+	//new Patch(Call, D2MULTI, 0x11D63, (int)ChannelInput_Interception, 5),//updated
+	//new Patch(Call, D2MULTI, 0x14A9A, (int)ChannelWhisper_Interception, 5),
+	//new Patch(Jump, D2MULTI, 0x14BE0, (int)ChannelChat_Interception, 6),
+	//new Patch(Jump, D2MULTI, 0x14850, (int)ChannelEmote_Interception, 6),
 
 };
 
@@ -72,7 +73,7 @@ bool BH::Startup(HINSTANCE instance, VOID* reserved) {
 
 	new Maphack();
 	new ScreenInfo();
-	//new Gamefilter();
+	new Gamefilter();
 	new Bnet();
 	new Item();
 	//new SpamFilter();

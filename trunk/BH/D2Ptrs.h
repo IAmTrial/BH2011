@@ -767,7 +767,7 @@ VARPTR(D2MULTI, GameListControl, Control*, 0x39FF0)//1.13c - Unchanged
 // D2Multi Stubs
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-ASMPTR(D2MULTI, ChannelChat_I, 0x14BE0)
+ASMPTR(D2MULTI, ChannelChat_I, 0x14BE6)
 ASMPTR(D2MULTI, ChannelEmote_I, 0x14850)
 ASMPTR(D2MULTI, ChannelWhisper_I, 0x142F0)
 ASMPTR(D2MULTI, ChannelInput_I, 0x11B80)
