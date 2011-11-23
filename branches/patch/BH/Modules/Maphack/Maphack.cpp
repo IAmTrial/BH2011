@@ -10,9 +10,9 @@
 #include "../../Drawing.h"
 
 using namespace Drawing;
-Patch* weatherPatch = new Patch(Jump, D2COMMON, 0x6CC56, (int)Weather_Interception, 5);
-Patch* lightingPatch = new Patch(Call, D2CLIENT, 0xA9A37, (int)Lighting_Interception, 6);
-Patch* infraPatch = new Patch(Call, D2CLIENT, 0x66623, (int)Infravision_Interception, 7);
+Patch* weatherPatch = new Patch(Jump, D2COMMON, 0x30C96, (int)Weather_Interception, 5);
+Patch* lightingPatch = new Patch(Call, D2CLIENT, 0x233A7, (int)Lighting_Interception, 6);
+Patch* infraPatch = new Patch(Call, D2CLIENT, 0xB4A23, (int)Infravision_Interception, 7);
 
 Maphack::Maphack() : Module("Maphack") {
 	revealType = MaphackRevealAct;
@@ -565,9 +565,7 @@ Level* Maphack::GetLevel(Act* pAct, int level)
 void __declspec(naked) Weather_Interception()
 {
 	__asm {
-		je rainold
 		xor al,al
-rainold:
 		ret 0x04
 	}
 }

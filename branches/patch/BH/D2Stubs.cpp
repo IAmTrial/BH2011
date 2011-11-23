@@ -60,7 +60,7 @@ __declspec(naked) CellFile* __fastcall D2CLIENT_LoadUiImage(CHAR* szPath)
 	{
 		MOV EAX, ECX
 		PUSH 0
-		CALL D2CLIENT_LoadUiImage_I
+		CALL D2CLIENT_LoadUIImage_I
 		RETN
 	}
 }
